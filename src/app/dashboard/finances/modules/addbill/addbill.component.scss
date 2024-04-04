@@ -1,0 +1,264 @@
+.addIncome {
+    position: relative;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 20px 60px;
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 28%);
+
+    .reload {
+        position: absolute;
+        font-size: 20px;
+        color: #fff;
+        right: 15px;
+        top: 26px;
+        cursor: pointer;
+        transition: 0.6s;
+    }
+
+    .reload:hover {
+        transform: rotate(-360deg);
+    }
+
+    h1 {
+        text-align: center;
+        margin: 0;
+        color: #fff;
+    }
+
+    .ca-container {
+        padding: 20px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .o-container {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cards-container {
+        // background-color: red;
+        // aspect-ratio: 10/16;
+        // width: 500;
+        // position: relative;
+        padding: 25px 0;
+        display: flex;
+        // overflow: scroll;
+        // scroll-snap-type: x mandatory;
+
+        .card {
+            background-color: blue;
+            display: block;
+            height: 180px;
+            width: 290px;
+            border-radius: 15px;
+            margin: 0 auto;
+        }
+    }
+
+    .btns-container {
+        padding-top: 20px;
+        display: flex;
+        justify-content: end;
+        column-gap: 20px;
+    }
+
+}
+
+
+
+
+swiper-container {
+    width: 290px;
+    height: 180px;
+}
+
+swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    color: #fff;
+    background-color: red;
+}
+
+swiper-slide .credit-card-bbva {
+    background-color: #060e2d;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+
+        .icon-bank {
+            width: 60px;
+        }
+    }
+
+    .body-card {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        .icon-waves {
+            width: 25px;
+        }
+
+        .icon-chip {
+            width: 30px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .footer-card {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+
+        .icon-visa {
+            width: 70px;
+            margin-top: 32px;
+            margin-right: -6px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+swiper-slide .debit-card-bbva {
+    background-color: #4a9785;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+
+        .icon-bank {
+            width: 60px;
+        }
+    }
+
+    .body-card {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        .icon-waves {
+            width: 25px;
+        }
+
+        .icon-chip {
+            width: 30px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .footer-card {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        position: relative;
+
+        .icon-visa {
+            width: 70px;
+            margin-top: 27px;
+            margin-right: -6px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .text-debit {
+            position: absolute;
+            top: 70px;
+            right: -1px;
+            font-size: 9px;
+        }
+    }
+}
+
+swiper-slide .cash {
+    background-color: #327f0e;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    .container-cash {
+        position: relative;
+        border: 2px solid #000;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .circle {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+
+        .circle::before {
+            position: absolute;
+            content: '';
+            width: 31px;
+            height: 31px;
+            transform: translate(-5px, -5px);
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+
+        .icon-dollar {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+
+            img {
+                width: 50px;
+            }
+        }
+
+        .icon-dollar::before {
+            content: '';
+            position: absolute;
+            width: 78px;
+            height: 78px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            transform: translate(-6px, -6px);
+        }
+    }
+
+    .container-cash::before {
+        content: '';
+        position: absolute;
+        border: 2px solid #000;
+        height: 99%;
+        width: 99%;
+    }
+}

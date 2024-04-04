@@ -1,0 +1,179 @@
+.credit-card-bbva {
+    background-color: #060e2d;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+
+        .icon-bank {
+            width: 60px;
+        }
+    }
+
+    .body-card {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        .icon-waves {
+            width: 25px;
+        }
+
+        .icon-chip {
+            width: 30px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .footer-card {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+
+        .icon-visa {
+            width: 70px;
+            margin-top: 32px;
+            margin-right: -6px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.debit-card-bbva {
+    background-color: #4a9785;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+
+        .icon-bank {
+            width: 60px;
+        }
+    }
+
+    .body-card {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        .icon-waves {
+            width: 25px;
+        }
+
+        .icon-chip {
+            width: 30px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .footer-card {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        position: relative;
+
+        .icon-visa {
+            width: 70px;
+            margin-top: 27px;
+            margin-right: -6px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .text-debit {
+            position: absolute;
+            top: 70px;
+            right: -1px;
+            font-size: 9px;
+        }
+    }
+}
+
+.cash {
+    background-color: #327f0e;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    .container-cash {
+        position: relative;
+        border: 2px solid #000;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .circle {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+
+        .circle::before {
+            position: absolute;
+            content: '';
+            width: 31px;
+            height: 31px;
+            transform: translate(-5px, -5px);
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+
+        .icon-dollar {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+
+            img {
+                width: 50px;
+            }
+        }
+
+        .icon-dollar::before {
+            content: '';
+            position: absolute;
+            width: 78px;
+            height: 78px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            transform: translate(-6px, -6px);
+        }
+    }
+
+    .container-cash::before {
+        content: '';
+        position: absolute;
+        border: 2px solid #000;
+        height: 99%;
+        width: 99%;
+    }
+}

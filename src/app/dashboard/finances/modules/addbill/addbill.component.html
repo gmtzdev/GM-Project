@@ -1,0 +1,164 @@
+<form [formGroup]="addBill" class="addIncome">
+
+    <i class="fa-solid fa-arrow-rotate-left reload"></i>
+    <h1>Add Bill</h1>
+
+    <div class="ca-container">
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-feather"></i>
+            </div>
+            <label for="concept">Concept</label>
+            <input type="text" formControlName="concept" id="concept" class="input" (change)="dynamicVerify('concept')">
+        </div>
+
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-coins"></i>
+            </div>
+            <label for="amount">Amount</label>
+            <input type="number" formControlName="amount" id="amount" class="input" (change)="dynamicVerify('amount')">
+        </div>
+    </div>
+
+    <div class="ca-container">
+        <div class="my-input" id="ng-autocomplete-category">
+            <div class="icon" (click)="addCategory()">
+                <i class="fa-solid fa-icons"></i>
+            </div>
+            <label for="category" style="transform: translate(40%, -50%);">Category</label>
+
+            <div class="ng-autocomplete input">
+                <ng-autocomplete [data]="categories" searchKeyword="name" placeholder=""
+                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused("category")' (closed)='onClosed("category")' [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate" formControlName="category" id="category">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="my-input" id="ng-autocomplete-payment">
+            <div class="icon">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+            <label for="payment" style="transform: translate(40%, -50%);">Payment</label>
+
+            <div class="ng-autocomplete input">
+                <ng-autocomplete [data]="payments" searchKeyword="name" placeholder=""
+                    (selected)='selectEventPayment($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused("payment")' (closed)='onClosed("payment")' [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate" formControlName="payment" id="payment">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="o-container">
+        <div class="my-input" id="ng-autocomplete-institution">
+            <div class="icon">
+                <i class="fa-solid fa-city"></i>
+            </div>
+            <label for="institution" style="transform: translate(40%, -50%);">Institution</label>
+
+            <div class="ng-autocomplete input">
+                <ng-autocomplete [data]="institutions" searchKeyword="name" placeholder=""
+                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused("institution")' (closed)='onClosed("institution")'
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="institution"
+                    id="institution">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <swiper-container class="mySwiper" effect="cards" grab-cursor="true">
+            <swiper-slide>
+                <div class="credit-card-bbva">
+                    <div class="header-card">
+                        <div class="icon-bank">
+                            <img src="assets/svg/bbva.svg" alt="">
+                        </div>
+                        <span>Azul</span>
+                    </div>
+                    <div class="body-card">
+                        <div class="icon-waves">
+                            <img src="assets/svg/waves.svg" alt="">
+                        </div>
+                        <div class="icon-chip">
+                            <img src="assets/png/chip.png" alt="">
+                        </div>
+                    </div>
+                    <div class="footer-card">
+                        <div class="icon-visa">
+                            <img src="assets/svg/visa.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="debit-card-bbva">
+                    <div class="header-card">
+                        <div class="icon-bank">
+                            <img src="assets/svg/bbva.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="body-card">
+                        <div class="icon-waves">
+                            <img src="assets/svg/waves-debit.svg" alt="">
+                        </div>
+                        <div class="icon-chip">
+                            <img src="assets/png/chip.png" alt="">
+                        </div>
+                    </div>
+                    <div class="footer-card">
+                        <div class="icon-visa">
+                            <img src="assets/svg/visa.svg" alt="">
+                            <span class="text-debit">Débito</span>
+                        </div>
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="cash">
+                    <div class="container-cash">
+                        <div class="circle"></div>
+                        <div class="icon-dollar">
+                            <img src="assets/svg/dollar2.svg" alt="">
+                        </div>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </swiper-slide>
+        </swiper-container>
+    </div>
+
+    <div class="btns-container">
+        <button class="btn btn-red" (click)="cancel()" type="button">Cancelar</button>
+        <button class="btn btn-green" (click)="saveBill()" type="button" id="saveBill">Guardar</button>
+    </div>
+</form>

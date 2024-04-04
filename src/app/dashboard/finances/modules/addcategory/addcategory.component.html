@@ -1,0 +1,28 @@
+<form [formGroup]="addCategory" class="addIncome">
+
+    <i class="fa-solid fa-arrow-rotate-left reload"></i>
+    <h1>Add Category</h1>
+
+    <div class="ca-container">
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-feather"></i>
+            </div>
+            <label for="concept">Concept</label>
+            <input type="text" formControlName="concept" id="concept" class="input" (change)="dynamicVerify('concept')">
+        </div>
+
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-coins"></i>
+            </div>
+            <label for="amount">Amount</label>
+            <input type="number" formControlName="amount" id="amount" class="input">
+        </div>
+    </div>
+
+    <div class="btns-container">
+        <button class="btn btn-red" type="button" (click)="cancel()">Cancelar</button>
+        <button class="btn btn-green" type="button" (click)="saveIncome()" id="saveIncome">Guardar</button>
+    </div>
+</form>

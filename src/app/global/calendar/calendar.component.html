@@ -1,0 +1,23 @@
+<section class="calendar-container">
+
+    <div class="calendar-header">
+        <h4>Marzo</h4>
+        <h3>2024</h3>
+    </div>
+
+    <div class="week">
+        @for (day of week; track $index) {
+        <div class="days">{{day.con}}</div>
+        }
+    </div>
+
+    <div class="calendar">
+        @for (item of items; track $index) {
+        <div class="day">
+            <span>
+                <p>{{item}}</p>
+            </span>
+        </div>
+        }
+    </div>
+</section>
