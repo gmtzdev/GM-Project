@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div class="navitem" [ngClass]="{'collapse': collapse}" [routerLink]='navItem.route' [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+    <div class="navitem" [ngClass]="{'collapse': collapse}" [routerLink]='navItem.route' [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: navItem.exact}">
       <div class="icon">
         <i class="fa-solid {{navItem.icon}}"></i>
       </div>
@@ -22,5 +22,5 @@ import { RouterModule } from '@angular/router';
 })
 export class NavitemComponent {
   @Input() collapse: boolean = true;
-  @Input() navItem: NavItem = { id: 0, title: '', icon: '', route: '' };
+  @Input() navItem: NavItem = { id: 0, title: '', icon: '', route: '', exact: false };
 }

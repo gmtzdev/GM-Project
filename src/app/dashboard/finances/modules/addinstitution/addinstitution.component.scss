@@ -1,0 +1,47 @@
+.addIncome {
+    position: relative;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 20px 60px;
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 28%);
+
+    .reload {
+        position: absolute;
+        font-size: 20px;
+        color: #fff;
+        right: 15px;
+        top: 26px;
+        cursor: pointer;
+        transition: 0.6s;
+    }
+
+    .reload:hover {
+        transform: rotate(-360deg);
+    }
+
+    h1 {
+        text-align: center;
+        margin: 0;
+        color: #fff;
+    }
+
+    .container {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .btns-container {
+        padding-top: 20px;
+        display: flex;
+        justify-content: end;
+        column-gap: 20px;
+    }
+
+}
+
+.my-input {
+    label {
+        transform: translate(45%, -50%);
+    }
+}

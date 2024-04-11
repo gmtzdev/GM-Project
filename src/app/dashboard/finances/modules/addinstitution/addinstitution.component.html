@@ -1,1 +1,20 @@
-<p>addinstitution works!</p>
+<form [formGroup]="addInstitution" class="addIncome">
+
+    <i class="fa-solid fa-arrow-rotate-left reload"></i>
+    <h1>Add Institution</h1>
+
+    <div class="container">
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-city"></i>
+            </div>
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" id="name" class="input" (change)="dynamicVerify('name')">
+        </div>
+    </div>
+
+    <div class="btns-container">
+        <button class="btn btn-red" type="button" (click)="cancel()">Cancelar</button>
+        <button class="btn btn-green" type="button" (click)="saveInstitution()" id="saveInstitution">Guardar</button>
+    </div>
+</form>

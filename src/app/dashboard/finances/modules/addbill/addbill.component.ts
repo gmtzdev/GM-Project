@@ -190,6 +190,14 @@ export class AddbillComponent implements OnInit {
   }
 
   public addCategory() {
-    this.router.navigate(['addCategory'])
+    this.router.navigate(['finances','addCategory'])
+  }
+
+  public addCard(){
+    this.router.navigate(['finances', 'addCard'])
+  }
+
+  public addInstitution() {
+    this.router.navigate(['finances','addInstitution'])
   }
 }

@@ -46,7 +46,7 @@
         </div>
 
         <div class="my-input" id="ng-autocomplete-payment">
-            <div class="icon">
+            <div class="icon" (click)="addCard()">
                 <i class="fa-solid fa-wallet"></i>
             </div>
             <label for="payment" style="transform: translate(40%, -50%);">Payment</label>
@@ -71,7 +71,7 @@
 
     <div class="o-container">
         <div class="my-input" id="ng-autocomplete-institution">
-            <div class="icon">
+            <div class="icon" (click)="addInstitution()">
                 <i class="fa-solid fa-city"></i>
             </div>
             <label for="institution" style="transform: translate(40%, -50%);">Institution</label>

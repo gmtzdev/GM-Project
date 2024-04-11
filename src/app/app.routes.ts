@@ -7,17 +7,22 @@ import { AddbillComponent } from './dashboard/finances/modules/addbill/addbill.c
 import { AddcategoryComponent } from './dashboard/finances/modules/addcategory/addcategory.component';
 import { AddinstitutionComponent } from './dashboard/finances/modules/addinstitution/addinstitution.component';
 import { AddbankcardComponent } from './dashboard/finances/modules/addbankcard/addbankcard.component';
+import { HomefinancesComponent } from './dashboard/finances/modules/homefinances/homefinances.component';
 
 export const routes: Routes = [
     {
         path: '', component: MainComponent, children: [
             { path: '', component: HomeComponent },
-            { path: 'finances', component: FinancesComponent },
-            { path: 'addIncome', component: AddincomeComponent },
-            { path: 'addBill', component: AddbillComponent },
-            { path: 'addCategory', component: AddcategoryComponent },
-            { path: 'addInstitution', component: AddinstitutionComponent },
-            { path: 'addCard', component: AddbankcardComponent },
+            {
+                path: 'finances', component: FinancesComponent, children: [
+                    { path: '', component: HomefinancesComponent },
+                    { path: 'addIncome', component: AddincomeComponent },
+                    { path: 'addBill', component: AddbillComponent },
+                    { path: 'addCategory', component: AddcategoryComponent },
+                    { path: 'addInstitution', component: AddinstitutionComponent },
+                    { path: 'addCard', component: AddbankcardComponent },
+                ]
+            },
         ]
     }
 ];

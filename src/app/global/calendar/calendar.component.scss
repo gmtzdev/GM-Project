@@ -34,27 +34,18 @@
             height: 33px;
             text-align: center;
 
-            span {
+            div {
                 width: 35px;
                 height: 35px;
                 border-radius: 50%;
                 display: grid;
                 place-items: center;
-
-                p {
-                    margin: 0;
-                    padding: 0;
-                    text-align: center;
-                    padding-bottom: 3px;
-                    padding-right: 1px;
-                }
             }
         }
 
         .day:hover {
-            span {
+            div {
                 background-color: rgb(18, 16, 39);
-
             }
         }
     }
