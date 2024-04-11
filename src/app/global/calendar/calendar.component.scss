@@ -10,6 +10,10 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
+
+        h4 {
+            text-transform: capitalize;
+        }
     }
 
     .week {
@@ -35,9 +39,9 @@
             text-align: center;
 
             div {
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                border-radius: 10px;
                 display: grid;
                 place-items: center;
             }
@@ -46,6 +50,18 @@
         .day:hover {
             div {
                 background-color: rgb(18, 16, 39);
+            }
+        }
+
+        .day.today {
+            div {
+                background-color: rgb(18, 16, 39);
+            }
+        }
+
+        .day.no-day-of-month {
+            div {
+                color: rgb(137, 132, 187);
             }
         }
     }
