@@ -45,5 +45,12 @@ export class MainComponent implements OnInit {
 
   public async initializer() {
     this.navitems = await lastValueFrom(this.generalService.getNavItems());
+    this.navitems.forEach((n) => {
+      if (n.route === '') {
+        n.exact = true;
+      }else{
+        n.exact = false;
+      }
+    })
   }
 }

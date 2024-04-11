@@ -4,8 +4,8 @@
     border-radius: 10px;
     padding: 20px 60px;
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 28%);
-    
-    .reload{
+
+    .reload {
         position: absolute;
         font-size: 20px;
         color: #fff;
@@ -14,7 +14,8 @@
         cursor: pointer;
         transition: 0.6s;
     }
-    .reload:hover{
+
+    .reload:hover {
         transform: rotate(-360deg);
     }
 
@@ -24,23 +25,23 @@
         color: #fff;
     }
 
-    .ca-container {
-        padding: 20px 0;
-        display: flex;
-        justify-content: space-between;   
-    }
-
-    .o-container{
+    .container {
         padding: 20px 0;
         display: flex;
         justify-content: center;
     }
 
-    .btns-container{
+    .btns-container {
         padding-top: 20px;
         display: flex;
         justify-content: end;
         column-gap: 20px;
     }
 
+}
+
+.my-input {
+    label {
+        transform: translate(45%, -50%);
+    }
 }

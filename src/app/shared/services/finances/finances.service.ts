@@ -11,6 +11,8 @@ import { Payment } from '../../models/database/Payment.model';
 import { Institution } from '../../models/database/Institution.model';
 import { Card } from '../../models/database/Card.model';
 import { HttpResponse } from '../../models/http/HttpResponse.model';
+import { CreateCategoryDto } from '../../dto/create-category.dto';
+import { CreateInstitutionDto } from '../../dto/create-institution.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +28,20 @@ export class FinancesService {
   ) { }
 
   // General
-  public getIncomesPer() {
+  public getBillsInFormat(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URLFinances}/getBillsInFormat`);
+  }
+  public getIncomesPer(): Observable<HttpResponse> {
     let date = this.datesService.getDate();
     return this.http.get<HttpResponse>(`${this.URLFinances}/getIncomesPer/${date}`);
   }
-
+  public getBillsPer(): Observable<HttpResponse> {
+    let date = this.datesService.getDate();
+    return this.http.get<HttpResponse>(`${this.URLFinances}/getBillsPer/${date}`);
+  }
+  public getTopOneCategory(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URLFinances}/getTopOneCategory`);
+  }
   public getIncomesVsBills(year: number): any {
     return this.http.get<NavItem[]>(`${this.URLFinances}/getIncomesVsBills/${year}`);
   }
@@ -55,6 +66,10 @@ export class FinancesService {
   public getCartegories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.URL}/category`);
   }
+  public saveCategory(category: CreateCategoryDto): Observable<HttpResponse> {
+    category = new CreateCategoryDto(category.name);
+    return this.http.post<HttpResponse>(`${this.URL}/category`, { category });
+  }
 
   // Payment
   public getPayments(): Observable<Payment[]> {
@@ -65,6 +80,11 @@ export class FinancesService {
   public getInstitutions(): Observable<Institution[]> {
     return this.http.get<Institution[]>(`${this.URL}/institution`);
   }
+  public saveInstitution(institution: CreateInstitutionDto): Observable<HttpResponse> {
+    institution = new CreateInstitutionDto(institution.name);
+    return this.http.post<HttpResponse>(`${this.URL}/institution`, { institution });
+  }
+
 
   // Card
   public getCards(): Observable<Card[]> {
@@ -77,12 +97,20 @@ export class FinancesService {
     let aux: string[] = [];
     let money: string = '$';
     let long: number = a.length;
-    for (let i = 1; i <= long; i++) {
-      aux.push(a[long - i]);
-      if (i % 3 === 0) {
-        aux.push(',')
+    let includesPoint: boolean = a.includes('.');
+
+    let i = 1
+    if (includesPoint)
+      for (i = 1; i <= long; i++) {
+        aux.push(a[long - i]);
+        if (a[long - i] == '.') { i++; break };
       }
+
+    for (let j = i; j <= long; j++) {
+      aux.push(a[long - j]);
+      if ((j - i + 1) % 3 === 0 && (j + 1) <= long) aux.push(',')
     }
+
     aux = aux.reverse();
     money += aux.join('');
     return money;

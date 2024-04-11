@@ -11,7 +11,6 @@ export class SuccessModal {
     static readonly TopEnd = Swal.mixin({
         icon: 'success',
         position: 'top-end',
-        allowOutsideClick: false,
         showConfirmButton: false,
         timer: 2000,
         toast: true,
