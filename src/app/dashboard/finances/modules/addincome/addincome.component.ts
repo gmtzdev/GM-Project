@@ -70,11 +70,13 @@ export class AddincomeComponent implements OnInit {
     const label = document.getElementById(id) as HTMLDivElement;
     label.classList.add('focus');
   }
-  onClosed(id: string) {
-    this.dynamicVerify(id);
-    id = `ng-autocomplete-${id}`;
-    const label = document.getElementById(id) as HTMLDivElement;
-    if (this.addIncome.value.origin == "" || this.addIncome.value.origin == null)
+  onClosed(id: string, valid: boolean = true) {
+    const formControl = id;
+    if (valid)
+      this.dynamicVerify(formControl);
+    let id_label = `ng-autocomplete-${id}`;
+    const label = document.getElementById(id_label) as HTMLDivElement;
+    if (this.addIncome.controls[id].value == "" || this.addIncome.controls[id].value == null)
       label.classList.remove('focus');
   }
   public cancel() {
@@ -111,7 +113,7 @@ export class AddincomeComponent implements OnInit {
         parent.classList.remove("focus");
       }
     }
-    this.onClosed('origin');
+    this.onClosed('origin', false);
   }
   private showInvalids() {
     for (const input in this.addIncome.controls) {

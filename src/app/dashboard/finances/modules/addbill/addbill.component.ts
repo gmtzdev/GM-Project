@@ -1,4 +1,4 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FinancesService } from '../../../../shared/services/finances/finances.service';
@@ -112,11 +112,13 @@ export class AddbillComponent implements OnInit {
     const label = document.getElementById(id) as HTMLDivElement;
     label.classList.add('focus');
   }
-  onClosed(id: string) {
-    this.dynamicVerify(id);
+  onClosed(id: string, valid: boolean = true) {
+    const formControl = id;
+    if (valid)
+      this.dynamicVerify(formControl);
     let id_label = `ng-autocomplete-${id}`;
     const label = document.getElementById(id_label) as HTMLDivElement;
-    if (this.addBill.controls[id].value == "")
+    if (this.addBill.controls[id].value == "" || this.addBill.controls[id].value == null)
       label.classList.remove('focus');
   }
 
@@ -135,14 +137,12 @@ export class AddbillComponent implements OnInit {
         this.addBill.controls['card'].setValue(this.cards[i])
       }
     }
-
     if (!this.addBill.valid) {
       ErrorModal.Center.fire({ 'title': 'Invalid form' });
       this.showInvalids();
       btnSave.disabled = false;
       return;
     }
-
     const result = await lastValueFrom(this.financesService.saveBill(this.addBill.value));
     if (!result.success) {
       alert('Error');
@@ -163,7 +163,9 @@ export class AddbillComponent implements OnInit {
         parent.classList.remove("focus");
       }
     }
-    this.onClosed('origin');
+    this.onClosed('category', false);
+    this.onClosed('payment', false);
+    this.onClosed('institution', false);
   }
   private showInvalids() {
     for (const input in this.addBill.controls) {
@@ -190,14 +192,14 @@ export class AddbillComponent implements OnInit {
   }
 
   public addCategory() {
-    this.router.navigate(['finances','addCategory'])
+    this.router.navigate(['finances', 'addCategory'])
   }
 
-  public addCard(){
+  public addCard() {
     this.router.navigate(['finances', 'addCard'])
   }
 
   public addInstitution() {
-    this.router.navigate(['finances','addInstitution'])
+    this.router.navigate(['finances', 'addInstitution'])
   }
 }
