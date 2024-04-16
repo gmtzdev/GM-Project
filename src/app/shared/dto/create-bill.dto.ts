@@ -11,6 +11,7 @@ export class CreateBillDto {
     payment: Payment;
     card: Card;
     institution: Institution;
+    created_at: Date;
 
     constructor(bill: any) {
         this.concept = bill.concept;
@@ -18,6 +19,7 @@ export class CreateBillDto {
         this.category = bill.category;
         this.payment = bill.payment;
         this.card = bill.card;
-        this.institution = bill.institution
+        this.institution = bill.institution;
+        this.created_at = bill.created_at;
     }
 }
