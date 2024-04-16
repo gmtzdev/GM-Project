@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="o-container">
+    <div class="ca-container">
         <div class="my-input" id="ng-autocomplete-origin">
             <div class="icon">
                 <i class="fa-solid fa-otter"></i>
@@ -49,6 +49,14 @@
                     <div [innerHTML]="notFound"></div>
                 </ng-template>
             </div>
+        </div>
+
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <label for="created_at" style="transform: translate(60%, -50%);">Date</label>
+            <input type="datetime-local" formControlName="created_at" id="created_at" class="input" (change)="dynamicVerify('created_at')">
         </div>
     </div>
 

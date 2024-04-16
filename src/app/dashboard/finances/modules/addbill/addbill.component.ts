@@ -35,6 +35,7 @@ export class AddbillComponent implements OnInit {
     'payment': new FormControl('', Validators.required),
     'card': new FormControl('', Validators.required),
     'institution': new FormControl('', Validators.required),
+    'created_at': new FormControl('', Validators.required)
   });
 
   constructor(

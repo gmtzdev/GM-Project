@@ -28,6 +28,7 @@ export class AddincomeComponent implements OnInit {
     'concept': new FormControl('', Validators.required),
     'amount': new FormControl('', Validators.required),
     'origin': new FormControl('', Validators.required),
+    'created_at': new FormControl('', Validators.required)
   });
 
   async ngOnInit(): Promise<void> {
