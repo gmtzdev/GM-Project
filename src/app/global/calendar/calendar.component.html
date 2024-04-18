@@ -14,7 +14,7 @@
     <div class="calendar">
         @for (item of items; track $index) {
         <div class="day" [ngClass]="{'today': item.today, 'no-day-of-month': item.noDayOfMonth}">
-            <div>{{item.day}}</div>
+            <div (click)="insertTask($event, item.day, item.noDayOfMonth)">{{item.day}}</div>
         </div>
         }
     </div>

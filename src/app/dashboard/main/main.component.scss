@@ -9,7 +9,7 @@
         width: 140px;
         height: 100vh;
         padding: 20px 5px;
-        
+
         background: rgb(255 255 255 / 10%);
         // background: rgba(255, 255, 255, 0.493);
         box-shadow: 0 8px 32px 0 rgb(31 38 135 / 28%);
@@ -45,8 +45,8 @@
         overflow-y: auto;
     }
 
-    .dash::-webkit-scrollbar{
-            width: 0;
+    .dash::-webkit-scrollbar {
+        width: 0;
     }
 
     .dash-collapse {
@@ -55,7 +55,12 @@
 
     .calendar {
         display: grid;
-        grid-template-rows: 40% 30% 30%;
+        grid-template-rows: 38% 32% 30%;
         height: 100vh;
+
+        background: rgb(255 255 255 / 10%);
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 28%);
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
     }
 }
