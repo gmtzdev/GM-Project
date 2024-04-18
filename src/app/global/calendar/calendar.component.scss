@@ -1,15 +1,18 @@
 .calendar-container {
-    height: 95%;
-    background: rgb(255 255 255 / 10%);
-    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 28%);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    height: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    border-end-start-radius: 5px;
+    border-end-end-radius: 5px;
 
     .calendar-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
+
+        h4 {
+            text-transform: capitalize;
+        }
     }
 
     .week {
@@ -35,17 +38,31 @@
             text-align: center;
 
             div {
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                border-radius: 10px;
                 display: grid;
                 place-items: center;
             }
+
+            div:hover {
+                cursor: pointer;
+                // background-color: rgb(18, 16, 39);
+                border: 1px solid rgba(255, 255, 255, 0.28);
+            }
         }
 
-        .day:hover {
+
+        .day.today {
             div {
                 background-color: rgb(18, 16, 39);
+                // border: 1px solid #fff;
+            }
+        }
+
+        .day.no-day-of-month {
+            div {
+                color: rgb(137, 132, 187);
             }
         }
     }

@@ -1,8 +1,8 @@
 <section class="calendar-container">
 
     <div class="calendar-header">
-        <h4>Marzo</h4>
-        <h3>2024</h3>
+        <h4>{{month}}</h4>
+        <h3>{{year}}</h3>
     </div>
 
     <div class="week">
@@ -13,8 +13,8 @@
 
     <div class="calendar">
         @for (item of items; track $index) {
-        <div class="day">
-            <div>{{item}}</div>
+        <div class="day" [ngClass]="{'today': item.today, 'no-day-of-month': item.noDayOfMonth}">
+            <div (click)="insertTask($event, item.day, item.noDayOfMonth)">{{item.day}}</div>
         </div>
         }
     </div>

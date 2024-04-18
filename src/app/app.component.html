@@ -1,1 +1,17 @@
-<router-outlet />
+<div class="container" id="blur">
+    <router-outlet />
+</div>
+
+
+<div class="wrap" id="wrap" (click)="closeDateModal($event)">
+    <div class="modal-wrap" id="modal-wrap" #ModalDateWrap>
+        <div class="modal">
+            <div class="forward">
+                <div class="number"></div>
+            </div>
+            <div class="back">
+                <span>Home</span>
+            </div>
+        </div>
+    </div>
+</div>

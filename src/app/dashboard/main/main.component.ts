@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
     this.navitems.forEach((n) => {
       if (n.route === '') {
         n.exact = true;
-      }else{
+      } else {
         n.exact = false;
       }
     })
