@@ -1,13 +1,11 @@
-export class HttpResponse{
-    success: boolean;
-    message: string;
-    object: any;
-    status: number;
+export class HttpResponse {
+  success: boolean;
+  message: string;
+  data: any;
 
-    constructor(success: boolean, message: string, object: any, status: number = 200){
-        this.success = success;
-        this.message = message;
-        this.object = object;
-        this.status = status;
-    }
+  constructor(success: boolean, message: string, data: any) {
+    this.success = success;
+    this.message = message;
+    this.data = data;
+  }
 }

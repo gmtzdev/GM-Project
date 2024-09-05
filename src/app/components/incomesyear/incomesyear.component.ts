@@ -1,29 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { FinancesService } from '../../shared/services/finances/finances.service';
-import { lastValueFrom } from 'rxjs';
+import { HttpResponse } from '../../shared/models/http/HttpResponse.model';
+import { IncomesVsBill } from '../../shared/models/IncomesVsBill.model';
 
 @Component({
   selector: 'app-incomesyear',
   standalone: true,
-  imports: [
-    NgxChartsModule,
-  ],
+  imports: [NgxChartsModule],
   templateUrl: './incomesyear.component.html',
   styleUrl: './incomesyear.component.scss',
-  animations: []
+  animations: [],
 })
 export class IncomesyearComponent implements OnInit {
   view: [number, number] = [805, 300];
-  colorScheme: any = {
-    domain: [
-      '#4735DD',
-      '#FF3E6C',
-      '#FFA200',
-      '#AAAAAA'
-    ]
-  }
-  multi: any[] = [];
+  colorScheme: Color = {
+    domain: ['#0006ff', '#1ef50d', '#FFA200', '#AAAAAA'],
+    name: 'MyColorsTwo',
+    selectable: false,
+    group: ScaleType.Linear,
+  };
+  multi: IncomesVsBill[] = [];
   gradient: boolean = false;
   showXAxis: boolean = true;
   showYAxis: boolean = true;
@@ -34,28 +31,28 @@ export class IncomesyearComponent implements OnInit {
   yAxisLabel: string = 'Pesos MXN';
   legendTitle: string = 'Movimientos';
 
-  constructor(
-    private financesService: FinancesService
-  ){
-
-  }
+  constructor(private financesService: FinancesService) {}
 
   ngOnInit(): void {
     this.initializer();
   }
-  
-  async initializer(){
+
+  async initializer() {
     const year = new Date().getFullYear();
-    this.multi = await lastValueFrom(this.financesService.getIncomesVsBills(year));
+    this.financesService.getIncomesVsBills(year).subscribe({
+      next: (response: HttpResponse) => {
+        this.multi = response.data as IncomesVsBill[];
+      },
+    });
   }
 
-  onSelect($event: any): void {
+  // onSelect($event: any): void {
 
-  }
-  onActivate($event: any): void {
+  // }
+  // onActivate($event: any): void {
 
-  }
-  onDeactivate($event: any): void {
+  // }
+  // onDeactivate($event: any): void {
 
-  }
+  // }
 }

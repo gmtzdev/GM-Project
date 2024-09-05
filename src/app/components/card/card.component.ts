@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
       </div>
 
       <div class="title">
-        <span>{{card.title}}</span>
+        <span (click)="titleClick()">{{card.title}}</span>
       </div>
 
       <div class="subject">
@@ -29,6 +29,7 @@ import { Router } from '@angular/router';
 export class CardComponent {
   @Input() card: CardHome = { id: 0, icon: '', destination: '', title: '', subtitle: '', subject: '' };
   @Output() onIconClicked = new EventEmitter<number>();
+  @Output() onTitleClicked = new EventEmitter<number>();
 
   constructor(
     private router: Router
@@ -40,6 +41,10 @@ export class CardComponent {
 
   public iconClick(){
     this.onIconClicked.emit(this.card.id);
+  }
+
+  public titleClick(){
+    this.onTitleClicked.emit(this.card.id);
   }
 
 }

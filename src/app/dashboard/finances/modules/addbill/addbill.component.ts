@@ -1,5 +1,10 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FinancesService } from '../../../../shared/services/finances/finances.service';
 import { Location } from '@angular/common';
@@ -19,7 +24,7 @@ import { ErrorModal } from '../../../../shared/classes/modals/ErrorModal';
   imports: [ReactiveFormsModule, AutocompleteLibModule, BankCardComponent],
   templateUrl: './addbill.component.html',
   styleUrl: './addbill.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AddbillComponent implements OnInit {
   public categories: Category[] = [];
@@ -29,36 +34,36 @@ export class AddbillComponent implements OnInit {
   keyword: string = 'name';
 
   public addBill: FormGroup = new FormGroup({
-    'concept': new FormControl('', Validators.required),
-    'amount': new FormControl('', Validators.required),
-    'category': new FormControl('', Validators.required),
-    'payment': new FormControl('', Validators.required),
-    'card': new FormControl('', Validators.required),
-    'institution': new FormControl('', Validators.required),
-    'created_at': new FormControl('', Validators.required)
+    concept: new FormControl('', Validators.required),
+    amount: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
+    payment: new FormControl('', Validators.required),
+    card: new FormControl('', Validators.required),
+    institution: new FormControl('', Validators.required),
+    created_at: new FormControl('', Validators.required),
   });
 
   constructor(
     private financesService: FinancesService,
     private location: Location,
     private router: Router
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     const inputs = document.querySelectorAll('.input');
-    function addFocus(this: any) {
-      let parent = this.parentNode;
-      parent.classList.add("focus");
+    function addFocus(this: HTMLInputElement) {
+      const parent = this.parentNode as HTMLElement;
+      parent.classList.add('focus');
     }
-    function removeFocus(this: any) {
-      let parent = this.parentNode;
-      if (this.value == "") {
-        parent.classList.remove("focus");
+    function removeFocus(this: HTMLInputElement) {
+      const parent = this.parentNode as HTMLElement;
+      if (this.value == '') {
+        parent.classList.remove('focus');
       }
     }
-    inputs.forEach(input => {
-      input.addEventListener("focus", addFocus);
-      input.addEventListener("blur", removeFocus);
+    inputs.forEach((input) => {
+      input.addEventListener('focus', addFocus);
+      input.addEventListener('blur', removeFocus);
     });
     function animateBtn(this: any) {
       this.classList.add('animate');
@@ -67,15 +72,17 @@ export class AddbillComponent implements OnInit {
       }, 600);
     }
     const btns = document.querySelectorAll('.btn');
-    btns.forEach(btn => {
-      btn.addEventListener("click", animateBtn);
-    })
+    btns.forEach((btn) => {
+      btn.addEventListener('click', animateBtn);
+    });
 
-    await this.initializer()
+    await this.initializer();
   }
 
   async initializer() {
-    const resCategory = await lastValueFrom(this.financesService.getCartegories());
+    const resCategory = await lastValueFrom(
+      this.financesService.getCartegories()
+    );
     if (resCategory.length != 0) {
       this.categories = resCategory;
     }
@@ -83,7 +90,9 @@ export class AddbillComponent implements OnInit {
     if (resPayment.length != 0) {
       this.payments = resPayment;
     }
-    const resInstitution = await lastValueFrom(this.financesService.getInstitutions());
+    const resInstitution = await lastValueFrom(
+      this.financesService.getInstitutions()
+    );
     if (resInstitution.length != 0) {
       this.institutions = resInstitution;
     }
@@ -95,19 +104,18 @@ export class AddbillComponent implements OnInit {
 
   selectEventPayment($event: any) {
     const swiper = document.querySelector('swiper-container');
-    if ($event.id == 1)
-      swiper?.swiper.slideTo(2);
-    if ($event.id == 2)
-      swiper?.swiper.slideTo(1);
-    if ($event.id == 3)
-      swiper?.swiper.slideTo(0);
+    if ($event.id == 1) swiper?.swiper.slideTo(2);
+    if ($event.id == 2) swiper?.swiper.slideTo(1);
+    if ($event.id == 3) swiper?.swiper.slideTo(0);
   }
 
   selectEvent($event: any) {
-    console.log($event)
+    console.log($event);
   }
 
-  onChangeSearch($event: any) { }
+  onChangeSearch($event: any) {
+    console.log($event);
+  }
   onFocused(id: string) {
     id = `ng-autocomplete-${id}`;
     const label = document.getElementById(id) as HTMLDivElement;
@@ -115,18 +123,20 @@ export class AddbillComponent implements OnInit {
   }
   onClosed(id: string, valid: boolean = true) {
     const formControl = id;
-    if (valid)
-      this.dynamicVerify(formControl);
-    let id_label = `ng-autocomplete-${id}`;
+    if (valid) this.dynamicVerify(formControl);
+    const id_label = `ng-autocomplete-${id}`;
     const label = document.getElementById(id_label) as HTMLDivElement;
-    if (this.addBill.controls[id].value == "" || this.addBill.controls[id].value == null)
+    if (
+      this.addBill.controls[id].value == '' ||
+      this.addBill.controls[id].value == null
+    )
       label.classList.remove('focus');
   }
 
   public cancel() {
     setTimeout(() => {
       this.location.back();
-    }, 500)
+    }, 500);
   }
   public async saveBill() {
     const btnSave = document.getElementById('saveBill') as HTMLButtonElement;
@@ -135,16 +145,18 @@ export class AddbillComponent implements OnInit {
     const cards = document.querySelectorAll('swiper-slide');
     for (let i = 0; i < cards.length; i++) {
       if (cards[i].classList.contains('swiper-slide-active')) {
-        this.addBill.controls['card'].setValue(this.cards[i])
+        this.addBill.controls['card'].setValue(this.cards[i]);
       }
     }
     if (!this.addBill.valid) {
-      ErrorModal.Center.fire({ 'title': 'Invalid form' });
+      ErrorModal.Center.fire({ title: 'Invalid form' });
       this.showInvalids();
       btnSave.disabled = false;
       return;
     }
-    const result = await lastValueFrom(this.financesService.saveBill(this.addBill.value));
+    const result = await lastValueFrom(
+      this.financesService.saveBill(this.addBill.value)
+    );
     if (!result.success) {
       alert('Error');
       return;
@@ -157,11 +169,13 @@ export class AddbillComponent implements OnInit {
   }
   private resetForm() {
     this.addBill.reset();
-    const inputs = document.querySelectorAll('.input') as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll(
+      '.input'
+    ) as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
-      let parent = inputs[i].parentNode as HTMLDivElement;
-      if (inputs[i].value == "") {
-        parent.classList.remove("focus");
+      const parent = inputs[i].parentNode as HTMLDivElement;
+      if (inputs[i].value == '') {
+        parent.classList.remove('focus');
       }
     }
     this.onClosed('category', false);
@@ -193,14 +207,12 @@ export class AddbillComponent implements OnInit {
   }
 
   public addCategory() {
-    this.router.navigate(['finances', 'addCategory'])
+    this.router.navigate(['finances', 'addCategory']);
   }
-
   public addCard() {
-    this.router.navigate(['finances', 'addCard'])
+    this.router.navigate(['finances', 'addCard']);
   }
-
   public addInstitution() {
-    this.router.navigate(['finances', 'addInstitution'])
+    this.router.navigate(['finances', 'addInstitution']);
   }
 }

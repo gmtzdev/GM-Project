@@ -1,48 +1,24 @@
-import { Component } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
+import { Component, OnInit } from '@angular/core';
+import { FinancesService } from '../../shared/services/finances/finances.service';
+import { Objective } from '../../shared/models/database/Objective.modal';
+import { lastValueFrom } from 'rxjs';
+import { ObjectiveGraphComponent } from '../utils/objective-graph/objective-graph.component';
 @Component({
   selector: 'app-objetives',
   standalone: true,
-  imports: [NgxChartsModule],
+  imports: [ObjectiveGraphComponent],
   templateUrl: './objetives.component.html',
-  styleUrl: './objetives.component.scss'
+  styleUrl: './objetives.component.scss',
 })
-export class ObjetivesComponent {
-  view: [number, number] = [850, 300];
-  colorScheme:any = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
-  single: any[] =
-    [
-      {
-        "name": "Germany",
-        "value": 8940000
-      },
-      {
-        "name": "USA",
-        "value": 5000000
-      },
-      {
-        "name": "France",
-        "value": 7200000
-      },
-      {
-        "name": "UK",
-        "value": 6200000
-      },
-      {
-        "name": "Italy",
-        "value": 4200000
-      },
-      {
-        "name": "Spain",
-        "value": 8200000
-      }
-    ];
+export class ObjetivesComponent implements OnInit {
+  public objectives: Objective[] = [];
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  constructor(private financesService: FinancesService) {}
+
+  async ngOnInit() {
+    const response = await lastValueFrom(
+      this.financesService.getNoCompleteObjectives()
+    );
+    this.objectives = response.data;
   }
-
 }

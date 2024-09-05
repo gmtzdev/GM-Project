@@ -3,12 +3,25 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     border-end-start-radius: 5px;
     border-end-end-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.75);
 
     .calendar-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
+
+        .month-section{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-width: 130px;
+
+            .arrow{
+                cursor: pointer;
+                font-size: 10px;
+            }
+        }
 
         h4 {
             text-transform: capitalize;
@@ -55,7 +68,7 @@
 
         .day.today {
             div {
-                background-color: rgb(18, 16, 39);
+                background-color: rgba(14, 113, 169, 0.91);
                 // border: 1px solid #fff;
             }
         }

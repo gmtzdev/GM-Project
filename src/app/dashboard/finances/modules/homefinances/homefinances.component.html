@@ -2,41 +2,40 @@
     <!-- Cards -->
     <section class="cards-container">
         @for(card of cards; track card.id){
-        <app-card [card]="card" (onIconClicked)="changeCard($event)"></app-card>
+        <app-card [card]="card" (onIconClicked)="changeCard($event)" (onTitleClicked)="showDetails($event)"></app-card>
         }
     </section>
 
-    <!-- Bills -->
-    <section class="daily-bills-container">
-        <h4>Daily Bills</h4>
-        <!-- Graphic -->
-        <app-billsgraphic></app-billsgraphic>
-    </section>
-
     <!-- Incomes -->
-    <section class="incomes-container">
+    <section class="incomes-container main-background">
         <h4>Incomes vs Bills</h4>
         <!-- Incomes in year -->
         <app-incomesyear />
     </section>
 
-    <!-- Objetive -->
-    <section class="objetive-container">
-        <h4>Objetives</h4>
-        <app-objetives></app-objetives>
-    </section>
-
     <!-- bills -->
-    <section class="bills-container">
+    <section class="bills-container main-background">
         <!-- Category -->
         <app-billscategory></app-billscategory>
-
-        <!-- Graphic -->
-        <!-- <app-billsgraphic></app-billsgraphic> -->
     </section>
 
-    <!-- <section class="debts-container"> -->
-    <!-- Debts -->
-    <!-- f -->
-    <!-- </section> -->
+    <!-- Bills -->
+    <section class="daily-bills-container main-background">
+        <h4>Daily Bills</h4> 
+        <!-- Graphic -->
+        <app-billsgraphic></app-billsgraphic>
+    </section>
+
+    <!-- Objetive -->
+    <section class="objetive-container main-background">
+        <h4>Objetives</h4>
+        <app-objetives></app-objetives>
+        <button class="btn btn-blue btn-floating"><i class="fa-solid fa-plus"></i></button>
+    </section>
+
+    <section class="debts-container main-background">
+        <h4>Debts</h4>
+        <app-debts />
+    </section>
+
 </div>

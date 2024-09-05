@@ -1,0 +1,90 @@
+.container-graphic {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55% 45%;
+
+
+    .graph {
+        #chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+    }
+
+    .legend {
+        padding: 30px 20px;
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        height: 400px;
+        overflow-y: scroll;
+
+        .category {
+            display: grid;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+            grid-template-columns: 40px 1fr 60px;
+
+            .icon {
+                width: 40px;
+                height: 40px;
+                background-color: rgba(183,190,255,1);
+                display: grid;
+                place-items: center;
+                border-radius: 40%;
+
+                img {
+                    width: 80%
+                }
+            }
+
+
+            .info {
+                height: 40px;
+                padding-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                h5 {
+                    font-size: 14px;
+                }
+
+                span{
+                    font-size: 12px;
+                }
+            }
+
+            .value {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: end;
+                font-weight: bold;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .legend::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    .legend::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 4px;
+    }
+
+    .legend::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary-color-black);
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .legend::-webkit-scrollbar-track {
+        background: #d4d4d4;
+        border-radius: 4px;
+    }
+}

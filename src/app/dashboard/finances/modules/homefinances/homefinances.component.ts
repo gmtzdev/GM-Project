@@ -8,6 +8,8 @@ import { BillsgraphicComponent } from '../../../../components/billsgraphic/bills
 import { CardHome } from '../../../../shared/models/CardHome.model';
 import { FinancesService } from '../../../../shared/services/finances/finances.service';
 import { lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
+import { DebtsComponent } from '../../components/debts/debts.component';
 
 @Component({
   selector: 'app-homefinances',
@@ -18,48 +20,95 @@ import { lastValueFrom } from 'rxjs';
     ObjetivesComponent,
     BillscategoryComponent,
     BillsgraphicComponent,
+    DebtsComponent,
 
-    NgxChartsModule
+    NgxChartsModule,
   ],
   templateUrl: './homefinances.component.html',
-  styleUrl: './homefinances.component.scss'
+  styleUrl: './homefinances.component.scss',
 })
 export class HomefinancesComponent implements OnInit {
-
   private incomeIndex = 0;
   private billIndex = 0;
   public incomesPer: number[] = [];
   public billsPer: number[] = [];
 
   public cards: CardHome[] = [
-    { id: 1, icon: 'fa-sack-dollar', destination: 'finances/addIncome', title: 'Incomes', subtitle: 'year', subject: '$0' },
-    { id: 2, icon: 'fa-circle-dollar-to-slot', destination: 'finances/addBill', title: 'Bills', subtitle: 'year', subject: '$0' },
-    { id: 3, icon: 'fa-cart-shopping', destination: '', title: 'Top Category', subtitle: '', subject: '' },
-    { id: 4, icon: 'fa-credit-card', destination: '', title: 'Pay at', subtitle: '', subject: '50 days' }
-  ]
+    {
+      id: 1,
+      icon: 'fa-sack-dollar',
+      destination: 'finances/addIncome',
+      title: 'Incomes',
+      subtitle: 'year',
+      subject: '$0',
+    },
+    {
+      id: 2,
+      icon: 'fa-circle-dollar-to-slot',
+      destination: 'finances/addBill',
+      title: 'Bills',
+      subtitle: 'year',
+      subject: '$0',
+    },
+    {
+      id: 3,
+      icon: 'fa-cart-shopping',
+      destination: '',
+      title: 'Top Category',
+      subtitle: '',
+      subject: '',
+    },
+    {
+      id: 4,
+      icon: 'fa-credit-card',
+      destination: '',
+      title: 'Pay at',
+      subtitle: '',
+      subject: '50 days',
+    },
+  ];
 
   constructor(
-    private financesService: FinancesService
-  ) { }
+    private financesService: FinancesService,
+    private router: Router
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    const incomesPer = await lastValueFrom(this.financesService.getIncomesPer());
+    const incomesPer = await lastValueFrom(
+      this.financesService.getIncomesPer()
+    );
     if (incomesPer.success) {
-      this.incomesPer = incomesPer.object.incomesPer;
-      this.cards[0].subject = this.financesService.toMoneyFormat(this.incomesPer[this.incomeIndex]);
+      this.incomesPer = incomesPer.data.incomesPer;
+      this.cards[0].subject = this.financesService.toMoneyFormat(
+        this.incomesPer[this.incomeIndex]
+      );
     }
     const billPer = await lastValueFrom(this.financesService.getBillsPer());
+    console.log(billPer);
     if (billPer.success) {
-      this.billsPer = billPer.object.billsPer;
-      this.cards[1].subject = this.financesService.toMoneyFormat(this.billsPer[this.billIndex]);
+      this.billsPer = billPer.data.billsPer;
+      this.cards[1].subject = this.financesService.toMoneyFormat(
+        this.billsPer[this.billIndex]
+      );
     }
-    const TopOneCategoryResponse = await lastValueFrom(this.financesService.getTopOneCategory());
-    if(TopOneCategoryResponse.success){
-      this.cards[2].subject = TopOneCategoryResponse.object.category;
+    const TopOneCategoryResponse = await lastValueFrom(
+      this.financesService.getTopOneCategory()
+    );
+    if (TopOneCategoryResponse.success) {
+      this.cards[2].subject = TopOneCategoryResponse.data.category;
     }
   }
 
-
+  public showDetails(id: number) {
+    switch (id) {
+      case 1:
+        this.showIncomes();
+        break;
+      case 2:
+        this.showBills();
+        break;
+    }
+  }
   public changeCard(id: number) {
     switch (id) {
       case 1:
@@ -77,15 +126,21 @@ export class HomefinancesComponent implements OnInit {
     switch (this.incomeIndex) {
       case 0:
         subtitle = 'year';
-        subject = this.financesService.toMoneyFormat(this.incomesPer[this.incomeIndex]);
+        subject = this.financesService.toMoneyFormat(
+          this.incomesPer[this.incomeIndex]
+        );
         break;
       case 1:
         subtitle = 'month';
-        subject = this.financesService.toMoneyFormat(this.incomesPer[this.incomeIndex]);
+        subject = this.financesService.toMoneyFormat(
+          this.incomesPer[this.incomeIndex]
+        );
         break;
       case 2:
         subtitle = 'day';
-        subject = this.financesService.toMoneyFormat(this.incomesPer[this.incomeIndex]);
+        subject = this.financesService.toMoneyFormat(
+          this.incomesPer[this.incomeIndex]
+        );
         break;
       default:
         this.incomeIndex = -1;
@@ -102,15 +157,21 @@ export class HomefinancesComponent implements OnInit {
     switch (this.billIndex) {
       case 0:
         subtitle = 'year';
-        subject = this.financesService.toMoneyFormat(this.billsPer[this.billIndex]);
+        subject = this.financesService.toMoneyFormat(
+          this.billsPer[this.billIndex]
+        );
         break;
       case 1:
         subtitle = 'month';
-        subject = this.financesService.toMoneyFormat(this.billsPer[this.billIndex]);
+        subject = this.financesService.toMoneyFormat(
+          this.billsPer[this.billIndex]
+        );
         break;
       case 2:
         subtitle = 'day';
-        subject = this.financesService.toMoneyFormat(this.billsPer[this.billIndex]);
+        subject = this.financesService.toMoneyFormat(
+          this.billsPer[this.billIndex]
+        );
         break;
       default:
         this.billIndex = -1;
@@ -120,5 +181,10 @@ export class HomefinancesComponent implements OnInit {
     this.cards[1].subtitle = subtitle;
     this.cards[1].subject = subject;
   }
-
+  private showIncomes() {
+    this.router.navigate([this.router.url, 'showIncomes']);
+  }
+  private showBills() {
+    this.router.navigate([this.router.url, 'showBills']);
+  }
 }

@@ -29,11 +29,16 @@
             background: none;
             outline: none;
             border: 2px solid red;
-            color: red;
+            // color: red;
             font-size: 10px;
             border-radius: 5px;
             transition: all 0.25s ease;
             padding: 2px 5px;
+
+            //Test
+            background-color: red;
+            color: white;
+            box-shadow: 1px 3px 6px rgb(0 0 0 / 76%);
         }
 
         .btn:hover {
@@ -50,6 +55,7 @@
 
             font-weight: 500;
             color: #bbbdcd;
+            cursor: pointer;
         }
 
         // span:last-of-type {

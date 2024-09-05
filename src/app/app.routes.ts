@@ -8,6 +8,9 @@ import { AddcategoryComponent } from './dashboard/finances/modules/addcategory/a
 import { AddinstitutionComponent } from './dashboard/finances/modules/addinstitution/addinstitution.component';
 import { AddbankcardComponent } from './dashboard/finances/modules/addbankcard/addbankcard.component';
 import { HomefinancesComponent } from './dashboard/finances/modules/homefinances/homefinances.component';
+import { ShowincomesComponent } from './dashboard/finances/modules/showincomes/showincomes.component';
+import { ShowbillsComponent } from './dashboard/finances/modules/showbills/showbills.component';
+import { EditbillComponent } from './dashboard/finances/modules/editbill/editbill.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +24,9 @@ export const routes: Routes = [
                     { path: 'addCategory', component: AddcategoryComponent },
                     { path: 'addInstitution', component: AddinstitutionComponent },
                     { path: 'addCard', component: AddbankcardComponent },
+                    { path: 'showIncomes', component: ShowincomesComponent},
+                    { path: 'showBills', component: ShowbillsComponent},
+                    { path: 'editBills/:id', component: EditbillComponent}
                 ]
             },
         ]

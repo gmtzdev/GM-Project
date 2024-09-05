@@ -1,7 +1,15 @@
 <section class="calendar-container">
 
     <div class="calendar-header">
-        <h4>{{month}}</h4>
+        <div class="month-section">
+            <div class="arrow">
+                <i class="fa-solid fa-chevron-left" (click)="previousMonth()"></i>
+            </div>
+            <h4>{{month}}</h4>
+            <div class="arrow">
+                <i class="fa-solid fa-chevron-right" (click)="nextMonth()"></i>
+            </div>
+        </div>
         <h3>{{year}}</h3>
     </div>
 

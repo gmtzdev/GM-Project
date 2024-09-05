@@ -1,0 +1,172 @@
+<div class="wrap" id="wrap" (click)="closeDateModal($event)">
+
+    <div class="modal-wrap" id="modal-wrap" #ModalDateWrap>
+
+        <div class="modal">
+            <div class="forward">
+                <div class="number"></div>
+            </div>
+            <div class="back"></div>
+        </div>
+
+    </div>
+
+</div>
+
+@if (showForm) {
+<div class="form" id="newEventForm">
+    <form [formGroup]="newEventForm">
+
+        <div class="title">
+            <input type="text" formControlName="title" placeholder="Titulo" (change)="checkIfContentSomething()">
+        </div>
+
+        <div class="property">
+            <div class="header">
+                <div class="icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="content">
+                    <span>Todo el día</span>
+                </div>
+                <div class="aditional-input">
+                    <p-inputSwitch formControlName="all_day" (onChange)="onChangeInputSwitch()"
+                        styleClass="prime-inputSwitch-override">
+                    </p-inputSwitch>
+                </div>
+            </div>
+
+            <div class="body">
+                <div class="range">
+
+                    <div class="date-of-event">
+                        <div>
+                            dom, 21 de abril
+                        </div>
+                        @if (!this.newEventForm.controls['all_day'].value) {
+                        <div class="hour">
+                            8:00 a. m.
+                        </div>
+                        }
+                    </div>
+
+                    <div class="arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+
+                    <div class="date-of-event">
+                        <div>
+                            dom, 21 de abril
+                        </div>
+                        @if (!this.newEventForm.controls['all_day'].value) {
+                        <div class="hour">
+                            9:00 a. m.
+                        </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="property">
+            <div class="header">
+                <div class="icon">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+                <div class="content">
+                    <span>Alerta</span>
+                </div>
+                <div class="aditional-input">
+                    <p-inputSwitch formControlName="alert" (onChange)="onChangeInputSwitch()"
+                        styleClass="prime-inputSwitch-override">
+                    </p-inputSwitch>
+                </div>
+            </div>
+
+            <div class="body" [hidden]="!this.newEventForm.controls['alert'].value">
+                <div class="alert-options">
+                    <div class="option">
+                        <p-checkbox label="A la hora del evento" value="10" name="options_alert"  formControlName="options_alert"></p-checkbox>
+                    </div>
+                    <div class="option">
+                        <p-checkbox label="10 min. antes" value="20" name="options_alert"  formControlName="options_alert"></p-checkbox>
+                    </div>
+                    <div class="option">
+                        <p-checkbox label="1 hora antes" name="options_alert" value="30" formControlName="options_alert"></p-checkbox>
+                    </div>
+                    <div class="option">
+                        <p-checkbox label="1 día antes" name="options_alert" value="40" formControlName="options_alert"></p-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="property">
+            <div class="header">
+                <div class="icon">
+                    <i class="fa-solid fa-repeat"></i>
+                </div>
+                <div class="content">
+                    @if (this.newEventForm.controls['repeat'].value) {
+                        <span>Repetir</span>
+                    }@else{
+                        <span>No repetir</span>
+                    }
+                </div>
+
+                <div class="aditional-input">
+                    <p-inputSwitch formControlName="repeat" styleClass="prime-inputSwitch-override">
+                    </p-inputSwitch>
+                </div>
+            </div>
+
+            <div class="body" [hidden]="!this.newEventForm.controls['repeat'].value">
+                <div class="repeat-options">
+                    <div class="option">
+                        <p-checkbox label="1 vez cada día" [binary]="true" value="10" name="options_repeat" formControlName="options_repeat_one"></p-checkbox>
+                    </div>
+                    <div class="option">
+                        <p-checkbox label="1 vez cada semana" [binary]="true" value="20" name="options_repeat" formControlName="options_repeat_two"></p-checkbox>
+                    </div>
+                    <div class="option">
+                        <p-checkbox label="1 vez al mes" [binary]="true" value="30" name="options_repeat" formControlName="options_repeat_three"></p-checkbox>
+                    </div>
+                    <div class="option">
+                        <p-checkbox label="1 vez al año" [binary]="true" value="40" name="options_repeat" formControlName="options_repeat_four"></p-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="property">
+            <div class="header">
+                <div class="icon">
+                    <i class="fa-regular fa-file-lines"></i>
+                </div>
+                <div class="content" style="width: 100%;">
+                    <!-- <span>Notas</span> -->
+                    <textarea name="notes" id="" formControlName="notes" placeholder="Notas"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="property">
+            <div class="header">
+                <div class="icon">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="content">
+                    <span>Invitados</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="btns-container">
+            <button class="btn btn-green" (click)="saveEvent()">Save</button>
+        </div>
+    </form>
+
+</div>
+}

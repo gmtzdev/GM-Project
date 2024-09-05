@@ -69,16 +69,13 @@
         background: var(--secondary-color);
         border-radius: 4px;
     }
-
     .container-tasks::-webkit-scrollbar-thumb:hover{
         background: var(--secondary-color-black);
         box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
     }
-
     // .container-tasks::-webkit-scrollbar-thumb:active{
     //     // background: yellow;
     // }
-
     .container-tasks::-webkit-scrollbar-track{
         background: #d4d4d4;
         border-radius: 4px;
