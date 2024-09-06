@@ -13,7 +13,6 @@ import { Card } from '../../../../shared/models/database/Card.model';
 import { Payment } from '../../../../shared/models/database/Payment.model';
 import { BillToTable } from '../../../../shared/models/database/BillToTable.model';
 import { Router } from '@angular/router';
-import { Institution } from '../../../../shared/models/database/Institution.model';
 
 @Component({
   selector: 'app-showbills',
@@ -70,17 +69,21 @@ export class ShowbillsComponent {
         });
       });
 
-    this.financesServices
-      .getPayments()
-      .subscribe((responsePayments: Payment[]) => {
-        this.payments = responsePayments;
+    this.financesServices.getPayments().subscribe({
+      next: (responsePayments: HttpResponse) => {
+        if (!responsePayments.success) {
+          // Error
+          return;
+        }
+        this.payments = responsePayments.data as Payment[];
         this.payments.forEach((payment) => {
           this.paymentsOptions.push(payment.name);
         });
-      });
+      },
+    });
 
     this.financesServices.getInstitutions().subscribe({
-      next: (responseInstitutions: Institution[]) => {
+      next: (responseInstitutions: HttpResponse) => {
         console.log('Si responde');
         console.log(responseInstitutions);
       },

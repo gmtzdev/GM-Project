@@ -5,11 +5,7 @@ import { DatesService } from '../global/dates.service';
 import { CategoryOptions } from '../../interfaces/finances/categoryOptions';
 
 // Model
-import { Category } from '../../models/database/Category.model';
-import { Payment } from '../../models/database/Payment.model';
-import { Card } from '../../models/database/Card.model';
 import { HttpResponse } from '../../models/http/HttpResponse.model';
-import { Institution } from '../../models/database/Institution.model';
 import { Origin } from '../../models/origin.model';
 
 // Dto
@@ -101,8 +97,8 @@ export class FinancesService {
   }
 
   // Category
-  public getCartegories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.URL}/category`);
+  public getCartegories(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/category`);
   }
   public saveCategory(category: CreateCategoryDto): Observable<HttpResponse> {
     category = new CreateCategoryDto(category.name);
@@ -110,13 +106,13 @@ export class FinancesService {
   }
 
   // Payment
-  public getPayments(): Observable<Payment[]> {
-    return this.http.get<Payment[]>(`${this.URL}/payment`);
+  public getPayments(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/payment`);
   }
 
   // Institution
-  public getInstitutions(): Observable<Institution[]> {
-    return this.http.get<Institution[]>(`${this.URL}/institution`);
+  public getInstitutions(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/institution`);
   }
   public saveInstitution(
     institution: CreateInstitutionDto
@@ -128,8 +124,8 @@ export class FinancesService {
   }
 
   // Card
-  public getCards(): Observable<Card[]> {
-    return this.http.get<Card[]>(`${this.URL}/card`);
+  public getCards(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/card`);
   }
 
   // Contribution

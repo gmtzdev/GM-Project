@@ -17,6 +17,7 @@ import { Card } from '../../../../shared/models/database/Card.model';
 import { BankCardComponent } from '../../../../components/utils/bank-card/bank-card.component';
 import { SuccessModal } from '../../../../shared/classes/modals/SuccessModal';
 import { ErrorModal } from '../../../../shared/classes/modals/ErrorModal';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 
 @Component({
   selector: 'app-addbill',
@@ -80,26 +81,45 @@ export class AddbillComponent implements OnInit {
   }
 
   async initializer() {
-    const resCategory = await lastValueFrom(
-      this.financesService.getCartegories()
-    );
-    if (resCategory.length != 0) {
-      this.categories = resCategory;
-    }
-    const resPayment = await lastValueFrom(this.financesService.getPayments());
-    if (resPayment.length != 0) {
-      this.payments = resPayment;
-    }
-    const resInstitution = await lastValueFrom(
-      this.financesService.getInstitutions()
-    );
-    if (resInstitution.length != 0) {
-      this.institutions = resInstitution;
-    }
-    const resCard = await lastValueFrom(this.financesService.getCards());
-    if (resCard.length != 0) {
-      this.cards = resCard;
-    }
+    this.financesService.getCartegories().subscribe({
+      next: (resCategories: HttpResponse) => {
+        if (!resCategories.success) {
+          // Error
+          return;
+        }
+        this.categories = resCategories.data as Category[];
+      },
+    });
+
+    this.financesService.getPayments().subscribe({
+      next: (resPayment: HttpResponse) => {
+        if (!resPayment.success) {
+          // Error
+          return;
+        }
+        this.payments = resPayment.data as Payment[];
+      },
+    });
+
+    this.financesService.getInstitutions().subscribe({
+      next: (resInstitution: HttpResponse) => {
+        if (!resInstitution.success) {
+          // Error
+          return;
+        }
+        this.institutions = resInstitution.data as Institution[];
+      },
+    });
+
+    this.financesService.getCards().subscribe({
+      next: (resCard: HttpResponse) => {
+        if (!resCard.success) {
+          // Error
+          return;
+        }
+        this.cards = resCard.data as Card[];
+      },
+    });
   }
 
   selectEventPayment($event: any) {
@@ -107,14 +127,6 @@ export class AddbillComponent implements OnInit {
     if ($event.id == 1) swiper?.swiper.slideTo(2);
     if ($event.id == 2) swiper?.swiper.slideTo(1);
     if ($event.id == 3) swiper?.swiper.slideTo(0);
-  }
-
-  selectEvent($event: any) {
-    console.log($event);
-  }
-
-  onChangeSearch($event: any) {
-    console.log($event);
   }
   onFocused(id: string) {
     id = `ng-autocomplete-${id}`;

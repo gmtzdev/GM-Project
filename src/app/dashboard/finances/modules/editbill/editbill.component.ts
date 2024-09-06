@@ -94,26 +94,45 @@ export class EditbillComponent {
     });
   }
   private async initializer() {
-    const resCategory = await lastValueFrom(
-      this.financesService.getCartegories()
-    );
-    if (resCategory.length != 0) {
-      this.categories = resCategory;
-    }
-    const resPayment = await lastValueFrom(this.financesService.getPayments());
-    if (resPayment.length != 0) {
-      this.payments = resPayment;
-    }
-    const resInstitution = await lastValueFrom(
-      this.financesService.getInstitutions()
-    );
-    if (resInstitution.length != 0) {
-      this.institutions = resInstitution;
-    }
-    const resCard = await lastValueFrom(this.financesService.getCards());
-    if (resCard.length != 0) {
-      this.cards = resCard;
-    }
+    this.financesService.getCartegories().subscribe({
+      next: (resCategories: HttpResponse) => {
+        if (!resCategories.success) {
+          // Error
+          return;
+        }
+        this.categories = resCategories.data as Category[];
+      },
+    });
+
+    this.financesService.getPayments().subscribe({
+      next: (resPayment: HttpResponse) => {
+        if (!resPayment.success) {
+          // Error
+          return;
+        }
+        this.payments = resPayment.data as Payment[];
+      },
+    });
+
+    this.financesService.getInstitutions().subscribe({
+      next: (resInstitution: HttpResponse) => {
+        if (!resInstitution.success) {
+          // Error
+          return;
+        }
+        this.institutions = resInstitution.data as Institution[];
+      },
+    });
+
+    this.financesService.getCards().subscribe({
+      next: (resCard: HttpResponse) => {
+        if (!resCard.success) {
+          // Error
+          return;
+        }
+        this.cards = resCard.data as Card[];
+      },
+    });
   }
   private setCard(card: Card) {
     const swiper = document.querySelector('swiper-container');

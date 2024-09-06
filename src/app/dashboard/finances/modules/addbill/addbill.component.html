@@ -30,7 +30,6 @@
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="categories" searchKeyword="name" placeholder=""
-                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
                     (inputFocused)='onFocused("category")' (closed)='onClosed("category")' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate" formControlName="category" id="category">
                 </ng-autocomplete>
@@ -53,7 +52,7 @@
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="payments" searchKeyword="name" placeholder=""
-                    (selected)='selectEventPayment($event)' (inputChanged)='onChangeSearch($event)'
+                    (selected)='selectEventPayment($event)'
                     (inputFocused)='onFocused("payment")' (closed)='onClosed("payment")' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate" formControlName="payment" id="payment">
                 </ng-autocomplete>
@@ -78,7 +77,6 @@
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="institutions" searchKeyword="name" placeholder=""
-                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
                     (inputFocused)='onFocused("institution")' (closed)='onClosed("institution")'
                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="institution"
                     id="institution">
