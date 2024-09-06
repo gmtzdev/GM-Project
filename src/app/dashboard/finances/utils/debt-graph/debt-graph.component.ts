@@ -32,9 +32,7 @@ export class DebtGraphComponent {
     setTimeout(() => {
       this.subtitle = this.financesService.toMoneyFormat(this.maxValue);
 
-      this.dom = document.getElementById(
-        `objective${this.id}`
-      ) as HTMLDivElement;
+      this.dom = document.getElementById(`debt${this.id}`) as HTMLDivElement;
 
       this.myChart = echarts.init(this.dom, '', {
         renderer: 'canvas',
@@ -233,7 +231,7 @@ export class DebtGraphComponent {
     }, 500);
   }
 
-  public openContributionModal() {
+  public openDebtPaymentModal() {
     this.addContributionModalService.animationEmitter.emit({
       id: this.id,
       objective: this.title,
