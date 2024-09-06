@@ -13,6 +13,8 @@ import { Card } from '../../../../shared/models/database/Card.model';
 import { Payment } from '../../../../shared/models/database/Payment.model';
 import { BillToTable } from '../../../../shared/models/database/BillToTable.model';
 import { Router } from '@angular/router';
+import { Institution } from '../../../../shared/models/database/Institution.model';
+import { Bill } from '../../../../shared/models/database/Bill.model';
 
 @Component({
   selector: 'app-showbills',
@@ -36,9 +38,9 @@ import { Router } from '@angular/router';
 export class ShowbillsComponent {
   bills!: BillToTable[];
 
-  selectedCustomers!: Customer[];
+  selectedBills!: Bill[];
 
-  representatives!: Representative[];
+  institutions!: Institution[];
   cards!: Card[];
 
   payments!: { id: number; name: string }[];
@@ -84,22 +86,9 @@ export class ShowbillsComponent {
 
     this.financesServices.getInstitutions().subscribe({
       next: (responseInstitutions: HttpResponse) => {
-        console.log('Si responde');
-        console.log(responseInstitutions);
+        this.institutions = responseInstitutions.data as Institution[];
       },
     });
-    this.representatives = [
-      { name: 'Amy Elsner', image: 'amyelsner.png' },
-      { name: 'Anna Fali', image: 'annafali.png' },
-      { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-      { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-      { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-      { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-      { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-      { name: 'Onyama Limba', image: 'onyamalimba.png' },
-      { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-      { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
-    ];
 
     this.cards = [
       {
@@ -162,27 +151,4 @@ export class ShowbillsComponent {
   public editBill(id: number) {
     this.router.navigate(['finances', 'editBills', id]);
   }
-}
-
-interface Country {
-  name?: string;
-  code?: string;
-}
-
-interface Representative {
-  name?: string;
-  image?: string;
-}
-
-interface Customer {
-  id?: number;
-  name?: string;
-  country?: Country;
-  company?: string;
-  date?: string | Date;
-  status?: string;
-  activity?: number;
-  representative?: Representative;
-  verified?: boolean;
-  balance?: number;
 }
