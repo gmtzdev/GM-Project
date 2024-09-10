@@ -8,11 +8,11 @@ import {
 } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { BankCardComponent } from '../../../../components/utils/bank-card/bank-card.component';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
-import { Category } from '../../../../shared/models/database/Category.model';
-import { Payment } from '../../../../shared/models/database/Payment.model';
-import { Institution } from '../../../../shared/models/database/Institution.model';
-import { Card } from '../../../../shared/models/database/Card.model';
+import { FinancesService } from '../../core/services/finances.service';
+import { Category } from '../../core/models/database/Category.model';
+import { Payment } from '../../core/models/database/Payment.model';
+import { Institution } from '../../core/models/database/Institution.model';
+import { Card } from '../../core/models/database/Card.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
 import { firstValueFrom, lastValueFrom, map } from 'rxjs';

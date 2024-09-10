@@ -1,20 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DatesService } from '../global/dates.service';
-import { CategoryOptions } from '../../interfaces/finances/categoryOptions';
+import { DatesService } from '../../../../shared/services/global/dates.service';
+import { CategoryOptions } from '../interfaces/categoryOptions';
 
 // Model
-import { HttpResponse } from '../../models/http/HttpResponse.model';
-import { Origin } from '../../models/origin.model';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 
 // Dto
-import { CreateBillDto } from '../../dto/create-bill.dto';
-import { CreateIncomeDto } from '../../dto/create-icome.dto';
-import { CreateCategoryDto } from '../../dto/create-category.dto';
-import { CreateInstitutionDto } from '../../dto/create-institution.dto';
-import { UpdateBillDto } from '../../dto/bill/update-bill.dto';
-import { ContributionDto } from '../../dto/contribution/create-contribution.dto';
+import { CreateBillDto } from '../dto/bill/create-bill.dto';
+import { CreateIncomeDto } from '../dto/income/create-icome.dto';
+import { CreateCategoryDto } from '../dto/category/create-category.dto';
+import { CreateInstitutionDto } from '../dto/institution/create-institution.dto';
+import { UpdateBillDto } from '../dto/bill/update-bill.dto';
+import { ContributionDto } from '../dto/contribution/create-contribution.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -92,8 +91,8 @@ export class FinancesService {
   }
 
   // Origin
-  public getOrigins(): Observable<Origin[]> {
-    return this.http.get<Origin[]>(`${this.URL}/origin`);
+  public getOrigins(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/origin`);
   }
 
   // Category
@@ -113,6 +112,9 @@ export class FinancesService {
   // Institution
   public getInstitutions(): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`${this.URL}/institution`);
+  }
+  public getInstitutionsWithDebts(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/institution/withDebts`);
   }
   public saveInstitution(
     institution: CreateInstitutionDto

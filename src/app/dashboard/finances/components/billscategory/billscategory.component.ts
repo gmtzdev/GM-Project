@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
-import { FinancesService } from '../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { lastValueFrom } from 'rxjs';
-import { CategoryGraphic } from '../../shared/models/finances/categoryGraphic';
+import { CategoryGraphic } from '../../core/models/CategoryGraphic.model';
 import { CommonModule } from '@angular/common';
-import { MoneyFormatPipe } from '../../shared/pipes/MoneyFormat.pipe';
-import { TimeAgoPipe } from '../../shared/pipes/TimeAgo.pipe';
+import { MoneyFormatPipe } from '../../../../shared/pipes/MoneyFormat.pipe';
+import { TimeAgoPipe } from '../../../../shared/pipes/TimeAgo.pipe';
 
 @Component({
   selector: 'app-billscategory',

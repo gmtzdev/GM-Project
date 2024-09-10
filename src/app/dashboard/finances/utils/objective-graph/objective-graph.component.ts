@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
-import { FinancesService } from '../../../shared/services/finances/finances.service';
-import { AddContributionModalService } from '../../../shared/services/modals/add-contribution-modal.service';
+import { FinancesService } from '../../core/services/finances.service';
+import { AddContributionModalService } from '../../../../shared/services/modals/add-contribution-modal.service';
 
 @Component({
   selector: 'app-objective-graph',

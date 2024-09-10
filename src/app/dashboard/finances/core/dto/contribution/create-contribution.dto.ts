@@ -1,4 +1,4 @@
-import { Objective } from '../../models/database/Objective.modal';
+import { Objective } from '../../models/database/Objective.model';
 
 export interface ContributionDto {
   amount: number;

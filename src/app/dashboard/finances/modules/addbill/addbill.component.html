@@ -77,6 +77,7 @@
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="institutions" searchKeyword="name" placeholder=""
+                    (selected)='selectEventInstitution($event)'
                     (inputFocused)='onFocused("institution")' (closed)='onClosed("institution")'
                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="institution"
                     id="institution">
@@ -100,6 +101,34 @@
             <input type="datetime-local" formControlName="created_at" id="created_at" class="input" (change)="dynamicVerify('created_at')">
         </div>
     </div>
+
+    @if (debts.length !== 0) {  
+    <div class="only-one-container">
+        <div class="my-input" id="ng-autocomplete-debt">
+            <div class="icon">
+                <i class="fa-solid fa-hammer"></i>
+            </div>
+            <label for="debt" style="transform: translate(51%, -50%);">Debt</label>
+
+            <div class="ng-autocomplete input">
+                <ng-autocomplete [data]="debts" searchKeyword="debt" placeholder=""
+                    (inputFocused)='onFocused("debt")' (closed)='onClosed("debt")'
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="debt"
+                    id="debt">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.debt"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+
+    </div>
+    }
 
     <div class="cards-container">
         <swiper-container class="mySwiper" effect="cards" grab-cursor="true">

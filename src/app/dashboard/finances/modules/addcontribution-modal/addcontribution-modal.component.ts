@@ -10,7 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DatesService } from '../../../../shared/services/global/dates.service';
 import { ErrorModal } from '../../../../shared/classes/modals/ErrorModal';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { Debt } from '../../core/models/database/Debt.model';
 import { DebtGraphComponent } from '../../utils/debt-graph/debt-graph.component';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';

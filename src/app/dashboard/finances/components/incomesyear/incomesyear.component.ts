@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
-import { FinancesService } from '../../shared/services/finances/finances.service';
-import { HttpResponse } from '../../shared/models/http/HttpResponse.model';
-import { IncomesVsBill } from '../../shared/models/IncomesVsBill.model';
+import { FinancesService } from '../../core/services/finances.service';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
+import { IncomesVsBill } from '../../core/models/IncomesVsBill.model';
 
 @Component({
   selector: 'app-incomesyear',

@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { lastValueFrom } from 'rxjs';
-import { Origin } from '../../../../shared/models/origin.model';
+import { Origin } from '../../core/models/database/Origin.model';
 import { Location } from '@angular/common';
 import { SuccessModal } from '../../../../shared/classes/modals/SuccessModal';
 import { ErrorModal } from '../../../../shared/classes/modals/ErrorModal';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 
 @Component({
   selector: 'app-addincome',
   standalone: true,
   imports: [ReactiveFormsModule, AutocompleteLibModule],
   templateUrl: './addincome.component.html',
-  styleUrl: './addincome.component.scss'
+  styleUrl: './addincome.component.scss',
 })
 export class AddincomeComponent implements OnInit {
   public origins: Origin[] = [];
@@ -22,30 +28,30 @@ export class AddincomeComponent implements OnInit {
   constructor(
     private financesService: FinancesService,
     private location: Location
-  ) { }
+  ) {}
 
   public addIncome: FormGroup = new FormGroup({
-    'concept': new FormControl('', Validators.required),
-    'amount': new FormControl('', Validators.required),
-    'origin': new FormControl('', Validators.required),
-    'created_at': new FormControl('', Validators.required)
+    concept: new FormControl('', Validators.required),
+    amount: new FormControl('', Validators.required),
+    origin: new FormControl('', Validators.required),
+    created_at: new FormControl('', Validators.required),
   });
 
   async ngOnInit(): Promise<void> {
     const inputs = document.querySelectorAll('.input');
     function addFocus(this: any) {
-      let parent = this.parentNode;
-      parent.classList.add("focus");
+      const parent = this.parentNode;
+      parent.classList.add('focus');
     }
     function removeFocus(this: any) {
-      let parent = this.parentNode;
-      if (this.value == "") {
-        parent.classList.remove("focus");
+      const parent = this.parentNode;
+      if (this.value == '') {
+        parent.classList.remove('focus');
       }
     }
-    inputs.forEach(input => {
-      input.addEventListener("focus", addFocus);
-      input.addEventListener("blur", removeFocus);
+    inputs.forEach((input) => {
+      input.addEventListener('focus', addFocus);
+      input.addEventListener('blur', removeFocus);
     });
     function animateBtn(this: any) {
       this.classList.add('animate');
@@ -54,17 +60,21 @@ export class AddincomeComponent implements OnInit {
       }, 600);
     }
     const btns = document.querySelectorAll('.btn');
-    btns.forEach(btn => {
-      btn.addEventListener("click", animateBtn);
-    })
+    btns.forEach((btn) => {
+      btn.addEventListener('click', animateBtn);
+    });
 
-    await this.initializer()
+    await this.initializer();
   }
   private async initializer() {
-    const resOrigins = await lastValueFrom(this.financesService.getOrigins());
-    if (resOrigins.length != 0) {
-      this.origins = resOrigins;
-    }
+    this.financesService.getOrigins().subscribe({
+      next: (resOrigins: HttpResponse) => {
+        if (!resOrigins.success) {
+          return;
+        }
+        this.origins = resOrigins.data;
+      },
+    });
   }
   onFocused(id: string) {
     id = `ng-autocomplete-${id}`;
@@ -73,30 +83,34 @@ export class AddincomeComponent implements OnInit {
   }
   onClosed(id: string, valid: boolean = true) {
     const formControl = id;
-    if (valid)
-      this.dynamicVerify(formControl);
-    let id_label = `ng-autocomplete-${id}`;
+    if (valid) this.dynamicVerify(formControl);
+    const id_label = `ng-autocomplete-${id}`;
     const label = document.getElementById(id_label) as HTMLDivElement;
-    if (this.addIncome.controls[id].value == "" || this.addIncome.controls[id].value == null)
+    if (
+      this.addIncome.controls[id].value == '' ||
+      this.addIncome.controls[id].value == null
+    )
       label.classList.remove('focus');
   }
   public cancel() {
     setTimeout(() => {
       this.location.back();
-    }, 500)
+    }, 500);
   }
   public async saveIncome() {
     const btnSave = document.getElementById('saveIncome') as HTMLButtonElement;
     btnSave.disabled = true;
     if (!this.addIncome.valid) {
-      ErrorModal.Center.fire({ 'title': 'Invalid form' });
+      ErrorModal.Center.fire({ title: 'Invalid form' });
       this.showInvalids();
       btnSave.disabled = false;
       return;
     }
-    const result = await lastValueFrom(this.financesService.saveIncome(this.addIncome.value));
+    const result = await lastValueFrom(
+      this.financesService.saveIncome(this.addIncome.value)
+    );
     if (!result.success) {
-      alert('Show Error')
+      alert('Show Error');
       return;
     }
     setTimeout(() => {
@@ -107,11 +121,13 @@ export class AddincomeComponent implements OnInit {
   }
   private resetForm() {
     this.addIncome.reset();
-    const inputs = document.querySelectorAll('.input') as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll(
+      '.input'
+    ) as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
-      let parent = inputs[i].parentNode as HTMLDivElement;
-      if (inputs[i].value == "") {
-        parent.classList.remove("focus");
+      const parent = inputs[i].parentNode as HTMLDivElement;
+      if (inputs[i].value == '') {
+        parent.classList.remove('focus');
       }
     }
     this.onClosed('origin', false);

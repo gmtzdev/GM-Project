@@ -7,9 +7,9 @@ import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
-import { Income } from '../../../../shared/models/Income.model';
+import { Income } from '../../core/models/database/Income.model';
 
 @Component({
   selector: 'app-showincomes',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
-import { FinancesService } from '../../shared/services/finances/finances.service';
-import { HttpResponse } from '../../shared/models/http/HttpResponse.model';
+import { FinancesService } from '../../core/services/finances.service';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 
 @Component({
   selector: 'app-billsgraphic',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -9,12 +9,12 @@ import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Card } from '../../../../shared/models/database/Card.model';
-import { Payment } from '../../../../shared/models/database/Payment.model';
-import { BillToTable } from '../../../../shared/models/database/BillToTable.model';
+import { Card } from '../../core/models/database/Card.model';
+import { Payment } from '../../core/models/database/Payment.model';
+import { BillToTable } from '../../core/models/BillToTable.model';
 import { Router } from '@angular/router';
-import { Institution } from '../../../../shared/models/database/Institution.model';
-import { Bill } from '../../../../shared/models/database/Bill.model';
+import { Institution } from '../../core/models/database/Institution.model';
+import { Bill } from '../../core/models/database/Bill.model';
 
 @Component({
   selector: 'app-showbills',

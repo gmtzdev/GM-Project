@@ -6,18 +6,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { Location } from '@angular/common';
-import { lastValueFrom } from 'rxjs';
-import { Institution } from '../../../../shared/models/database/Institution.model';
-import { Category } from '../../../../shared/models/database/Category.model';
-import { Payment } from '../../../../shared/models/database/Payment.model';
+import { Institution } from '../../core/models/database/Institution.model';
+import { Category } from '../../core/models/database/Category.model';
+import { Payment } from '../../core/models/database/Payment.model';
 import { Router } from '@angular/router';
-import { Card } from '../../../../shared/models/database/Card.model';
+import { Card } from '../../core/models/database/Card.model';
 import { BankCardComponent } from '../../../../components/utils/bank-card/bank-card.component';
 import { SuccessModal } from '../../../../shared/classes/modals/SuccessModal';
 import { ErrorModal } from '../../../../shared/classes/modals/ErrorModal';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
+import { Debt } from '../../core/models/database/Debt.model';
 
 @Component({
   selector: 'app-addbill',
@@ -31,8 +31,10 @@ export class AddbillComponent implements OnInit {
   public categories: Category[] = [];
   public payments: Payment[] = [];
   public institutions: Institution[] = [];
+  public debts: Debt[] = [];
   public cards: Card[] = [];
-  keyword: string = 'name';
+  public keyword: string = 'name';
+  public keywordDebt: string = 'debt';
 
   public addBill: FormGroup = new FormGroup({
     concept: new FormControl('', Validators.required),
@@ -41,6 +43,7 @@ export class AddbillComponent implements OnInit {
     payment: new FormControl('', Validators.required),
     card: new FormControl('', Validators.required),
     institution: new FormControl('', Validators.required),
+    debt: new FormControl(''),
     created_at: new FormControl('', Validators.required),
   });
 
@@ -101,7 +104,7 @@ export class AddbillComponent implements OnInit {
       },
     });
 
-    this.financesService.getInstitutions().subscribe({
+    this.financesService.getInstitutionsWithDebts().subscribe({
       next: (resInstitution: HttpResponse) => {
         if (!resInstitution.success) {
           // Error
@@ -127,6 +130,11 @@ export class AddbillComponent implements OnInit {
     if ($event.id == 1) swiper?.swiper.slideTo(2);
     if ($event.id == 2) swiper?.swiper.slideTo(1);
     if ($event.id == 3) swiper?.swiper.slideTo(0);
+  }
+  selectEventInstitution($event: any) {
+    if ($event.debts && $event.debts.length !== 0) {
+      this.debts = $event.debts;
+    }
   }
   onFocused(id: string) {
     id = `ng-autocomplete-${id}`;
@@ -166,18 +174,27 @@ export class AddbillComponent implements OnInit {
       btnSave.disabled = false;
       return;
     }
-    const result = await lastValueFrom(
-      this.financesService.saveBill(this.addBill.value)
-    );
-    if (!result.success) {
-      alert('Error');
-      return;
-    }
-    setTimeout(() => {
-      SuccessModal.TopEnd.fire({ title: 'Bill saved successfully' });
-      this.resetForm();
-      btnSave.disabled = false;
-    }, 500);
+
+    // TODO Designs alert to show error
+    this.financesService.saveBill(this.addBill.value).subscribe({
+      next: (result: HttpResponse) => {
+        if (!result.success) {
+          alert('Error');
+          return;
+        }
+
+        setTimeout(() => {
+          SuccessModal.TopEnd.fire({ title: 'Bill saved successfully' });
+          this.resetForm();
+          btnSave.disabled = false;
+        }, 500);
+      },
+      error: (error: any) => {
+        // TODO implements a alert to show this error
+        console.log(error);
+        alert('Error');
+      },
+    });
   }
   private resetForm() {
     this.addBill.reset();

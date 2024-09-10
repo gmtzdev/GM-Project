@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FinancesService } from '../services/finances/finances.service';
+import { FinancesService } from '../../dashboard/finances/core/services/finances.service';
 
 @Pipe({
   name: 'MoneyFormat',

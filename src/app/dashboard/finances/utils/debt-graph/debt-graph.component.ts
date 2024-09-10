@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
+import { FinancesService } from '../../core/services/finances.service';
 import { AddContributionModalService } from '../../../../shared/services/modals/add-contribution-modal.service';
 import * as echarts from 'echarts';
 
@@ -229,13 +229,5 @@ export class DebtGraphComponent {
       //   });
       // }, 3000);
     }, 500);
-  }
-
-  public openDebtPaymentModal() {
-    this.addContributionModalService.animationEmitter.emit({
-      id: this.id,
-      objective: this.title,
-      amount: this.maxValue,
-    });
   }
 }
