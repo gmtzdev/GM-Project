@@ -1,4 +1,4 @@
-<div>
+<div style="background-color:#fff;">
 <p-table #dt [value]="incomes" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true" [rows]="10"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 15, 20, 25, 30, 35, 40, 45, 50]" [loading]="loading"
     [paginator]="true" currentPageReportTemplate="{first} to {last}.    Total: {totalRecords}" [filterDelay]="0"
@@ -7,7 +7,10 @@
     <ng-template pTemplate="caption">
         <div class="table-header">
 
-            List of Incomes
+            <div class="title-and-btn">
+                <h4>List of Incomes</h4>
+                <button class="btn btn-green">Analitycs</button>
+            </div>
 
             <span class="p-input-icon-left">
                 <div class="icon">
