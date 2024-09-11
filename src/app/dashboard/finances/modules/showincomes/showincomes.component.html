@@ -1,4 +1,4 @@
-<div style="background-color: #fff;">
+<div>
 <p-table #dt [value]="incomes" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true" [rows]="10"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 15, 20, 25, 30, 35, 40, 45, 50]" [loading]="loading"
     [paginator]="true" currentPageReportTemplate="{first} to {last}.    Total: {totalRecords}" [filterDelay]="0"
@@ -10,7 +10,9 @@
             List of Incomes
 
             <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
+                <div class="icon">
+                    <i class="pi pi-search"></i>
+                </div>
                 <input [(ngModel)]="globalFilter" pInputText type="text"
                     (input)="dt.filterGlobal(globalFilter, 'contains')" placeholder="Global Search" />
             </span>
@@ -20,6 +22,13 @@
 
     <ng-template pTemplate="header">
         <tr>
+
+            <!-- Selected -->
+            <th class="small-width">
+                <div class="column-header-center">
+                    <p-tableHeaderCheckbox />
+                </div>
+            </th>
 
             <!-- Update -->
             <th class="small-width">
@@ -106,6 +115,13 @@
     </ng-template>
     <ng-template pTemplate="body" let-income>
         <tr class="p-selectable-row">
+
+            <!-- Selected -->
+            <td>
+                <div class="checkbox-container">
+                    <p-tableCheckbox [value]="income" />
+                </div>
+            </td>
 
             <!-- Update -->
             <td>

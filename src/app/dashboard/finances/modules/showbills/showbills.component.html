@@ -1,20 +1,23 @@
 <div style="background-color:#fff;">
-
-
     <p-table #dt [value]="bills" [(selection)]="selectedBills" dataKey="id" [rowHover]="true" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 15, 20, 25, 30, 35, 40, 45, 50]" [loading]="loading"
-        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [filterDelay]="0" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} bills"
+        [filterDelay]="0" [globalFilterFields]="globalFilterOptions">
 
         <ng-template pTemplate="caption">
             <div class="table-header">
 
-                List of Bills
+                <div class="title-and-btn">
+                    <h4>List of Bills</h4>
+                    <button class="btn btn-green">Analitycs</button>
+                </div>
+            
 
                 <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input [(ngModel)]="globalFilter" pInputText type="text"
-                        (input)="dt.filterGlobal(globalFilter, 'contains')" placeholder="Global Search" />
+                    <div class="icon">
+                        <i class="pi pi-search"></i>
+                    </div>
+                    <input [(ngModel)]="globalFilter" pInputText type="text" (input)="dt.filterGlobal(globalFilter, 'contains')" placeholder="Global Search" />
                 </span>
 
             </div>
@@ -22,16 +25,18 @@
 
         <ng-template pTemplate="header">
             <tr>
+                <!-- Selected -->
+                <th class="small-width">
+                    <div class="column-header-center">
+                        <p-tableHeaderCheckbox />
+                    </div>
+                </th>
 
                 <!-- Update -->
                 <th class="small-width">
-
                     <div class="column-header">
-
                         <span>Update</span>
-
                     </div>
-
                 </th>
 
                 <!-- Concept -->
@@ -172,8 +177,16 @@
                 </th>
             </tr>
         </ng-template>
+
         <ng-template pTemplate="body" let-bill>
             <tr class="p-selectable-row">
+
+                <!-- Selected -->
+                <td>
+                    <div class="checkbox-container">
+                        <p-tableCheckbox [value]="bill" />
+                    </div>
+                </td>
 
                 <!-- Update -->
                 <td>
@@ -226,7 +239,6 @@
             </tr>
         </ng-template>
 
-
         <!-- Bills Not Found -->
         <ng-template pTemplate="emptymessage">
             <tr>
@@ -234,5 +246,4 @@
             </tr>
         </ng-template>
     </p-table>
-
 </div>

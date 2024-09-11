@@ -4,7 +4,7 @@ import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model'
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
-import { TagModule } from 'primeng/tag';
+import { Tag, TagModule } from 'primeng/tag';
 import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
@@ -37,21 +37,21 @@ import { Bill } from '../../core/models/database/Bill.model';
 })
 export class ShowbillsComponent {
   bills!: BillToTable[];
-
   selectedBills!: Bill[];
-
   institutions!: Institution[];
   cards!: Card[];
-
   payments!: { id: number; name: string }[];
   paymentsOptions: string[] = [];
-
   loading: boolean = true;
-
   activityValues: number[] = [0, 100];
-
+  public globalFilterOptions: string[] = [
+    'concept',
+    'amount',
+    'institution.name',
+    'paymentColumn',
+    'card.name',
+  ];
   public globalFilter: string = '';
-
   public payMethod!: string;
 
   constructor(
@@ -118,31 +118,31 @@ export class ShowbillsComponent {
     ];
   }
 
-  public getSeverity(status: string | number): string {
+  public getSeverity(status: string | number): Tag['severity'] {
     return typeof status === 'string'
       ? this.getSeverityByName(status)
       : this.getSeverityById(status);
   }
-  public getSeverityByName(status: string): string {
+  public getSeverityByName(status: string): Tag['severity'] {
     switch (status) {
       case 'Efectivo':
         return 'success';
       case 'Tarjeta de debito':
         return 'info';
       case 'Tarjeta de credito':
-        return '';
+        return undefined;
       default:
         return 'danger';
     }
   }
-  public getSeverityById(status: number): string {
+  public getSeverityById(status: number): Tag['severity'] {
     switch (status) {
       case 1:
         return 'success';
       case 2:
         return 'info';
       case 3:
-        return '';
+        return undefined;
       default:
         return 'danger';
     }
