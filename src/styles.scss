@@ -842,11 +842,7 @@ h5 {
 
 
 
-
-
-
-
-
+/* Tag */
 .p-tag {
     font-size: 11px;
     background: var(--primary-100);
@@ -888,4 +884,52 @@ h5 {
 
 .p-column-filter-overlay-menu .p-column-filter-buttonbar {
     padding: 10px 15px;
+}
+
+
+/* Toast */
+.p-toast .p-toast-message.p-toast-message-warn {
+    background: rgba(255, 242, 226, 0.7);
+    background: rgb(255 212 158 / 18%);
+    border: solid #cc8925;
+    border-width: 0 0 0 10px;
+    color: #cc8925;
+    color: #ff9900;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+    padding: 10px 1rem;
+    border-width: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close {
+    color: #cc8925;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 2rem;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+    margin: 0 0 0 1rem;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+    margin: 0.5rem 0 0 0;
+    font-size: 14px;
+}
+
+.p-toast .p-toast-message .p-toast-icon-close {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: transparent;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }

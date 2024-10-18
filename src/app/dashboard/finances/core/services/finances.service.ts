@@ -38,6 +38,19 @@ export class FinancesService {
   public getTopOneCategory(): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`${this.URL}/getTopOneCategory`);
   }
+  public getCurrentDatePayCreditCard(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(
+      `${this.URL}/getCurrentDatePayCreditCard`
+    );
+  }
+  public getDaysToPayCreditCard(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/getDaysToPayCreditCard`);
+  }
+  public getAmountSpendWithCreditCard(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(
+      `${this.URL}/getAmountSpendWithCreditCard`
+    );
+  }
   public getIncomesVsBills(year: number): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`${this.URL}/getIncomesVsBills/${year}`);
   }

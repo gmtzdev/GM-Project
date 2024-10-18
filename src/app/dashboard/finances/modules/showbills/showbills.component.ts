@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
-import { FinancesService } from '../../core/services/finances.service';
-import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
+/* PrimeNG */
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { Tag, TagModule } from 'primeng/tag';
 import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+
+/* Core */
+import { Component } from '@angular/core';
+import { FinancesService } from '../../core/services/finances.service';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Card } from '../../core/models/database/Card.model';
@@ -15,6 +21,7 @@ import { BillToTable } from '../../core/models/BillToTable.model';
 import { Router } from '@angular/router';
 import { Institution } from '../../core/models/database/Institution.model';
 import { Bill } from '../../core/models/database/Bill.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-showbills',
@@ -28,16 +35,20 @@ import { Bill } from '../../core/models/database/Bill.model';
     ProgressBarModule,
     CommonModule,
     FormsModule,
+    DialogModule,
+    ButtonModule,
+    ToastModule,
   ],
   templateUrl: './showbills.component.html',
   styleUrls: [
     './showbills.component.scss',
     '/src/app/shared/styles/gm-primeng-table.scss',
   ],
+  providers: [MessageService],
 })
 export class ShowbillsComponent {
   bills!: BillToTable[];
-  selectedBills!: Bill[];
+  selectedBills: Bill[] = [];
   institutions!: Institution[];
   cards!: Card[];
   payments!: { id: number; name: string }[];
@@ -54,9 +65,29 @@ export class ShowbillsComponent {
   public globalFilter: string = '';
   public payMethod!: string;
 
+  visible: boolean = false;
+  showDialog() {
+    if (this.selectedBills.length === 0) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'Must selected any bill',
+        life: 2000000,
+      });
+      return;
+    }
+    let count = 0;
+    for (const bill of this.selectedBills) {
+      count += bill.amount;
+    }
+    console.log(count);
+    this.visible = true;
+  }
+
   constructor(
     private readonly financesServices: FinancesService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit(): void {

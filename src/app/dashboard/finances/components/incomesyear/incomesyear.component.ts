@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { FinancesService } from '../../core/services/finances.service';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
@@ -13,7 +13,10 @@ import { IncomesVsBill } from '../../core/models/IncomesVsBill.model';
   animations: [],
 })
 export class IncomesyearComponent implements OnInit {
-  view: [number, number] = [805, 300];
+  @ViewChild('containerIncomesYear')
+  containerIncomesYear!: ElementRef;
+
+  view: [number, number] = [1000, 300];
   colorScheme: Color = {
     domain: ['#0006ff', '#1ef50d', '#FFA200', '#AAAAAA'],
     name: 'MyColorsTwo',
@@ -35,6 +38,15 @@ export class IncomesyearComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializer();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const container = this.containerIncomesYear
+        .nativeElement as HTMLDivElement;
+      const width = container.offsetWidth;
+      this.view = [width, 300];
+    }, 0);
   }
 
   async initializer() {

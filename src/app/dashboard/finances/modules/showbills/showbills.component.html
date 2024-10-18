@@ -9,7 +9,7 @@
 
                 <div class="title-and-btn">
                     <h4>List of Bills</h4>
-                    <button class="btn btn-green">Analitycs</button>
+                    <button class="btn btn-green" (click)="showDialog()">Analitycs</button>
                 </div>
             
 
@@ -247,3 +247,32 @@
         </ng-template>
     </p-table>
 </div>
+
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+
+    <ng-template pTemplate="header">
+        hola
+    </ng-template>
+
+    <span class="p-text-secondary block mb-5">Update your information.</span>
+
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="username" class="font-semibold w-6rem">Username</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+        <label for="email" class="font-semibold w-6rem">Email</label>
+        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+        <p-button label="Save" (onClick)="visible = false" />
+    </div>
+
+    <ng-template pTemplate="footer">
+        Adios
+    </ng-template>
+</p-dialog>
+
+<p-toast />

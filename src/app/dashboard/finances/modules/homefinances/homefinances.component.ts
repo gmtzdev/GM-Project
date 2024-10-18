@@ -7,9 +7,10 @@ import { BillscategoryComponent } from '../../components/billscategory/billscate
 import { BillsgraphicComponent } from '../../components/billsgraphic/billsgraphic.component';
 import { CardHome } from '../../core/models/CardHome.model';
 import { FinancesService } from '../../core/services/finances.service';
-import { lastValueFrom } from 'rxjs';
+import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { DebtsComponent } from '../../components/debts/debts.component';
+import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 
 @Component({
   selector: 'app-homefinances',
@@ -41,6 +42,7 @@ export class HomefinancesComponent implements OnInit {
       title: 'Incomes',
       subtitle: 'year',
       subject: '$0',
+      aditional: [],
     },
     {
       id: 2,
@@ -49,6 +51,7 @@ export class HomefinancesComponent implements OnInit {
       title: 'Bills',
       subtitle: 'year',
       subject: '$0',
+      aditional: [],
     },
     {
       id: 3,
@@ -56,7 +59,8 @@ export class HomefinancesComponent implements OnInit {
       destination: '',
       title: 'Top Category',
       subtitle: '',
-      subject: '',
+      subject: 'Not Found',
+      aditional: [],
     },
     {
       id: 4,
@@ -64,7 +68,8 @@ export class HomefinancesComponent implements OnInit {
       destination: '',
       title: 'Pay at',
       subtitle: '',
-      subject: '50 days',
+      subject: 'Not Found',
+      aditional: [],
     },
   ];
 
@@ -74,29 +79,59 @@ export class HomefinancesComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const incomesPer = await lastValueFrom(
-      this.financesService.getIncomesPer()
-    );
-    if (incomesPer.success) {
-      this.incomesPer = incomesPer.data.incomesPer;
-      this.cards[0].subject = this.financesService.toMoneyFormat(
-        this.incomesPer[this.incomeIndex]
-      );
-    }
-    const billPer = await lastValueFrom(this.financesService.getBillsPer());
-    console.log(billPer);
-    if (billPer.success) {
-      this.billsPer = billPer.data.billsPer;
-      this.cards[1].subject = this.financesService.toMoneyFormat(
-        this.billsPer[this.billIndex]
-      );
-    }
-    const TopOneCategoryResponse = await lastValueFrom(
-      this.financesService.getTopOneCategory()
-    );
-    if (TopOneCategoryResponse.success) {
-      this.cards[2].subject = TopOneCategoryResponse.data.category;
-    }
+    this.financesService.getIncomesPer().subscribe({
+      next: (incomesPer: HttpResponse) => {
+        if (incomesPer.success) {
+          this.incomesPer = incomesPer.data.incomesPer;
+          this.cards[0].subject = this.financesService.toMoneyFormat(
+            this.incomesPer[this.incomeIndex]
+          );
+        }
+      },
+    });
+
+    this.financesService.getBillsPer().subscribe({
+      next: (billPer: HttpResponse) => {
+        if (billPer.success) {
+          this.billsPer = billPer.data.billsPer;
+          this.cards[1].subject = this.financesService.toMoneyFormat(
+            this.billsPer[this.billIndex]
+          );
+        }
+      },
+    });
+
+    this.financesService
+      .getTopOneCategory()
+      .pipe(
+        map((response: HttpResponse) => {
+          if (!response.success) return 'Not found :c';
+          return response.data.category;
+        })
+      )
+      .subscribe({
+        next: (category: string) => {
+          this.cards[2].subject = category;
+        },
+      });
+
+    this.financesService.getDaysToPayCreditCard().subscribe({
+      next: (response: HttpResponse) => {
+        if (!response.success) return;
+        this.cards[3].subject = `${response.data} days`;
+      },
+    });
+
+    this.financesService.getAmountSpendWithCreditCard().subscribe({
+      next: (response: HttpResponse) => {
+        if (!response.success) return;
+        this.cards[3].aditional.push(`${response.data.amount}`);
+        this.cards[3].aditional.push(`${response.data.percentage}`);
+        this.cards[3] = {
+          ...this.cards[3],
+        };
+      },
+    });
   }
 
   public showDetails(id: number) {
