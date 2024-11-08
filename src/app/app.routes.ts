@@ -11,24 +11,33 @@ import { HomefinancesComponent } from './dashboard/finances/modules/homefinances
 import { ShowincomesComponent } from './dashboard/finances/modules/showincomes/showincomes.component';
 import { ShowbillsComponent } from './dashboard/finances/modules/showbills/showbills.component';
 import { EditbillComponent } from './dashboard/finances/modules/editbill/editbill.component';
+import { TodolistComponent } from './dashboard/home/modules/todolist/todolist.component';
 
 export const routes: Routes = [
-    {
-        path: '', component: MainComponent, children: [
-            { path: '', component: HomeComponent },
-            {
-                path: 'finances', component: FinancesComponent, children: [
-                    { path: '', component: HomefinancesComponent },
-                    { path: 'addIncome', component: AddincomeComponent },
-                    { path: 'addBill', component: AddbillComponent },
-                    { path: 'addCategory', component: AddcategoryComponent },
-                    { path: 'addInstitution', component: AddinstitutionComponent },
-                    { path: 'addCard', component: AddbankcardComponent },
-                    { path: 'showIncomes', component: ShowincomesComponent},
-                    { path: 'showBills', component: ShowbillsComponent},
-                    { path: 'editBills/:id', component: EditbillComponent}
-                ]
-            },
-        ]
-    }
+  {
+    path: '',
+    component: MainComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        children: [{ path: '', component: TodolistComponent }],
+      },
+      {
+        path: 'finances',
+        component: FinancesComponent,
+        children: [
+          { path: '', component: HomefinancesComponent },
+          { path: 'addIncome', component: AddincomeComponent },
+          { path: 'addBill', component: AddbillComponent },
+          { path: 'addCategory', component: AddcategoryComponent },
+          { path: 'addInstitution', component: AddinstitutionComponent },
+          { path: 'addCard', component: AddbankcardComponent },
+          { path: 'showIncomes', component: ShowincomesComponent },
+          { path: 'showBills', component: ShowbillsComponent },
+          { path: 'editBills/:id', component: EditbillComponent },
+        ],
+      },
+    ],
+  },
 ];

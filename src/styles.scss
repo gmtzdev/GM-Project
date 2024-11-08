@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
+@import "./app/core/styles/primeng/checkbox.scss";
+@import "./app/core/styles/primeng/overlaypanel.scss";
 
 // linear-gradient(180deg, #2E323f 0%, #0A061A 100%);
 @font-face {
@@ -9,6 +11,9 @@
 
 
 :root {
+    // Global
+    --common-font-size: 13px;
+    --common-border-radius: 4px;
 
     --height-modal: 330px;
     
@@ -303,7 +308,7 @@
 
 body {
     font-family: Common;
-    font-size: 13px;
+    font-size: var(--common-font-size);
     margin: 0;
     color: #fff;
     user-select: none;
@@ -357,21 +362,17 @@ h5 {
 .btn-red {
     background-color: var(--red-color);
 }
-
 .btn-green {
     background-color: var(--green-color);
 }
-
 .btn-brown {
     background: #E6C6A6;
     background: linear-gradient(180deg, #7a4d20 0%, #c2996f 100%);
 }
-
 .btn-orange {
     background-color: #F54417;
     background: linear-gradient(180deg, #f33100 0%, #f35730 100%);
 }
-
 .btn-blue {
     background: linear-gradient(90deg, #1a2aed 0%, #4487ad 100%);
 }
@@ -387,7 +388,6 @@ h5 {
     background-repeat: no-repeat;
     z-index: 1;
 }
-
 
 .btn-red.animate::before {
     top: -70%;
@@ -661,12 +661,10 @@ h5 {
 
 
 /* PrimeNG Column Filter */
-
 .p-column-filter-overlay {
     .p-component {
         font-size: 13px;
     }
-
     /* Titles */
     .picker-title {
         padding: 10px 0px 5px 0px;
@@ -822,7 +820,6 @@ h5 {
         padding: 4px 10px;
     }
 }
-
 .p-column-filter-overlay-menu {
     .p-column-filter-operator {
         padding: 10px 15px;
@@ -848,40 +845,31 @@ h5 {
     background: var(--primary-100);
     color: var(--primary-700);
 }
-
 .p-tag.p-tag-success {
     background: var(--green-100);
     color: var(--green-700);
 }
-
 .p-tag.p-tag-info {
     background: var(--orange-100);
     color: var(--orange-700);
 }
-
 .p-tag.p-tag-danger {
     background: var(--red-100);
     color: var(--red-700);
 }
-
-
 .p-column-filter-overlay-menu .p-column-filter-constraint {
     padding: 10px 15px;
 }
-
 .p-fluid .p-button {
     font-size: 12px;
 }
-
 .p-button .p-button-icon-left {
     width: 12px;
 }
-
 .p-fluid .p-dropdown .p-dropdown-label {
     font-size: 13px;
     padding: 8px;
 }
-
 .p-column-filter-overlay-menu .p-column-filter-buttonbar {
     padding: 10px 15px;
 }
@@ -896,40 +884,57 @@ h5 {
     color: #cc8925;
     color: #ff9900;
 }
-
 .p-toast .p-toast-message .p-toast-message-content {
     padding: 10px 1rem;
     border-width: 0 0 0 10px;
     display: flex;
     align-items: center;
 }
-
 .p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close {
     color: #cc8925;
 }
-
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
     font-size: 2rem;
 }
-
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
     margin: 0 0 0 1rem;
 }
-
 .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
     font-weight: 700;
     font-size: 15px;
 }
-
 .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
     margin: 0.5rem 0 0 0;
     font-size: 14px;
 }
-
 .p-toast .p-toast-message .p-toast-icon-close {
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
     background: transparent;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+
+.li-list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    .li-list-item{
+        padding: 3px 5px;
+        border-radius: var(--common-border-radius);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .li-list-item-icon{
+            display: grid;
+            place-content: center;
+            width: 30px;
+        }
+    }
+    .li-list-item:hover{
+        background-color: #ffffff52;
+    }
 }

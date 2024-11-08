@@ -1,0 +1,38 @@
+.p-overlaypanel{ 
+    background-color: #000;
+    color: #ffffff;
+    border: 0 none;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+    font-size: var(--common-font-size);
+    .p-overlaypanel-content {
+        padding: 10px;
+    }
+}
+
+.p-overlaypanel:after, .p-overlaypanel:before {
+    bottom: 100%;
+    left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.p-overlaypanel:before {
+    border: solid transparent;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #000;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.p-overlaypanel:after {
+    border: solid transparent;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #000;
+    border-width: 8px;
+    margin-left: -8px;
+}
