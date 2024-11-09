@@ -7,7 +7,7 @@
             <h5>Lists</h5>
             <ul class="todo-lists-list">
                 @for(list of this.lists; track list.id){
-                    <li class="todo-lists-item">
+                    <li class="todo-lists-item" [ngClass]="{'active': list.selected}" (click)="findList(list.id, 0)">
                         <div class="todo-lists-item-icon">
                             <i class="fa-solid {{list.icon}}"></i>
                         </div>
@@ -18,12 +18,12 @@
 
             <h5 [style]="{'margin-top': '10px'}">Categories</h5>
             <ul class="todo-lists-list">
-                @for(list of this.lists; track list.id){
-                    <li class="todo-lists-item">
+                @for(category of this.categories; track category.id){
+                    <li class="todo-lists-item" [ngClass]="{'active': category.selected}" (click)="findList(category.id, 1)">
                         <div class="todo-lists-item-icon">
-                            <i class="fa-solid {{list.icon}}"></i>
+                            <i class="fa-solid {{category.icon}}"></i>
                         </div>
-                        <label>{{list.name}}</label>
+                        <label>{{category.name}}</label>
                     </li>
                 }
             </ul>

@@ -25,23 +25,37 @@
                     gap: 5px;
                     padding: 5px 12px;
                     border-radius: 2px;
+                    cursor: pointer;
+                    
+                    label{
+                        overflow: hidden;
+                        width: 85px;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        cursor: pointer;
+                    }
 
                     .todo-lists-item-icon{
                         display: grid;
                         place-content: center;
                         width: 30px;
-
+                        
                         i{
                             font-size: 15px;
                         }
                     }
-                    
                 }
 
+                .todo-lists-item.active,
                 .todo-lists-item:hover{
                     background-color: #00000052;
                 }
+
                 .todo-lists-item:hover::before{
+                    background-color: red;
+                }
+
+                .todo-lists-item.active::before{
                     background-color: red;
                 }
 

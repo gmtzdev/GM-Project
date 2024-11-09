@@ -13,6 +13,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CategoryService } from '../../core/service/category.service';
+import { CategoryTask } from '../../core/models/database/CategotyTask.model';
+import { SelectableList } from '../../core/models/class/SelectableList.model';
+import { CommonModule } from '@angular/common';
+import { SelectableCategoryTask } from '../../core/models/class/SelectableCategoryTask.model';
 
 @Component({
   selector: 'app-todolist',
@@ -22,6 +27,7 @@ import {
     FormsModule,
     CheckboxModule,
     OverlayPanelModule,
+    CommonModule,
   ],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.scss',
@@ -39,10 +45,12 @@ export class TodolistComponent implements OnInit {
 
   constructor(
     private readonly taskService: TaskService,
-    private readonly listService: ListService
+    private readonly listService: ListService,
+    private readonly categoryService: CategoryService
   ) {}
 
-  public lists: List[] = [];
+  public lists: SelectableList[] = [];
+  public categories: SelectableCategoryTask[] = [];
   public tasks: Task[] = [];
   public createTaskDto: FormGroup = new FormGroup({
     title: new FormControl<string>('', [Validators.required]),
@@ -65,7 +73,19 @@ export class TodolistComponent implements OnInit {
     });
     this.listService.getAllList().subscribe({
       next: (lists: List[]) => {
-        this.lists = lists;
+        for (const [index, l] of lists.entries()) {
+          const sl = new SelectableList(l);
+          if (index === 0) sl.selected = true;
+          this.lists.push(sl);
+        }
+      },
+    });
+    this.categoryService.getAllCategories().subscribe({
+      next: (categories: CategoryTask[]) => {
+        for (const c of categories) {
+          const sc = new SelectableCategoryTask(c);
+          this.categories.push(sc);
+        }
       },
     });
   }
@@ -124,6 +144,24 @@ export class TodolistComponent implements OnInit {
         this.createTaskDto = this.resetForm(this.createTaskDto);
         this.onSave = false;
       },
+    });
+  }
+
+  public findList(id: number, filter: number): void {
+    this.lists.forEach((value) => {
+      value.selected = false;
+      if (filter !== 0) return;
+      if (value.id === id) {
+        value.selected = true;
+      }
+    });
+
+    this.categories.forEach((value) => {
+      value.selected = false;
+      if (filter !== 1) return;
+      if (value.id === id) {
+        value.selected = true;
+      }
     });
   }
 
