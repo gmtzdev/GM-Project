@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Task } from '../models/database/Task.model';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 import { CreateTaskDto } from '../dto/create-task.dto';
+import { Category } from '../../../finances/core/models/database/Category.model';
+import { List } from '../models/database/List.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +37,27 @@ export class TaskService {
     return this.http.patch<HttpResponse>(`${this.URL}/setReady/${id}`, {
       ready,
     });
+  }
+
+  public getTaskListOfFilter(filter: List | Category): Observable<Task[]> {
+    let id = 0;
+    let type = '';
+    if (filter instanceof List) {
+      id = filter.id;
+      type = 'List';
+    } else {
+      id = filter.id;
+      type = 'Category';
+    }
+    return this.http
+      .get<HttpResponse>(`${this.URL}/getTaskListOfFilter/${id}`, {
+        params: new HttpParams().set('type', type),
+      })
+      .pipe(
+        map((response: HttpResponse) => {
+          console.log(response);
+          return response.data;
+        })
+      );
   }
 }

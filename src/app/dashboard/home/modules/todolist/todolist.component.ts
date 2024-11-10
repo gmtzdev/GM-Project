@@ -153,6 +153,11 @@ export class TodolistComponent implements OnInit {
       if (filter !== 0) return;
       if (value.id === id) {
         value.selected = true;
+        this.taskService.getTaskListOfFilter(value).subscribe({
+          next: (tasks: Task[]) => {
+            this.tasks = tasks;
+          },
+        });
       }
     });
 
@@ -161,6 +166,11 @@ export class TodolistComponent implements OnInit {
       if (filter !== 1) return;
       if (value.id === id) {
         value.selected = true;
+        this.taskService.getTaskListOfFilter(value).subscribe({
+          next: (tasks: Task[]) => {
+            this.tasks = tasks;
+          },
+        });
       }
     });
   }
