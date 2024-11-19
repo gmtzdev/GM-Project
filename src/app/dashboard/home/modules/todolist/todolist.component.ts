@@ -66,7 +66,7 @@ export class TodolistComponent implements OnInit {
   }
 
   private async initialize() {
-    this.taskService.getAllTask().subscribe({
+    this.taskService.getTaskListOfFilter(this.defaultList).subscribe({
       next: (tasks: Task[]) => {
         this.tasks = tasks;
       },
@@ -153,6 +153,7 @@ export class TodolistComponent implements OnInit {
       if (filter !== 0) return;
       if (value.id === id) {
         value.selected = true;
+        this.createTaskDto.controls['list'].setValue(value);
         this.taskService.getTaskListOfFilter(value).subscribe({
           next: (tasks: Task[]) => {
             this.tasks = tasks;

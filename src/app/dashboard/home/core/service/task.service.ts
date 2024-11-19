@@ -55,7 +55,6 @@ export class TaskService {
       })
       .pipe(
         map((response: HttpResponse) => {
-          console.log(response);
           return response.data;
         })
       );
