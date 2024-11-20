@@ -7,7 +7,7 @@
             <h5>Lists</h5>
             <ul class="todo-lists-list">
                 @for(list of this.lists; track list.id){
-                    <li class="todo-lists-item" [ngClass]="{'active': list.selected}" (click)="findList(list.id, 0)">
+                    <li class="todo-lists-item"  [class.active]="list.selected" (click)="findList(list.id, 0)">
                         <div class="todo-lists-item-icon">
                             <i class="fa-solid {{list.icon}}"></i>
                         </div>
