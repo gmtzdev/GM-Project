@@ -70,9 +70,11 @@ export class FinancesService {
       options,
     });
   }
-
   public getNoCompleteDebts(): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`${this.URL}/getNoCompleteDebts`);
+  }
+  public getExpensesByWeek(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/getExpensesByWeek`);
   }
 
   // Income

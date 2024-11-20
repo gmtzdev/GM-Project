@@ -11,6 +11,7 @@ import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { DebtsComponent } from '../../components/debts/debts.component';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
+import { ExpensesweekComponent } from '../../components/expensesweek/expensesweek.component';
 
 @Component({
   selector: 'app-homefinances',
@@ -18,6 +19,7 @@ import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model'
   imports: [
     CardComponent,
     IncomesyearComponent,
+    ExpensesweekComponent,
     ObjetivesComponent,
     BillscategoryComponent,
     BillsgraphicComponent,
