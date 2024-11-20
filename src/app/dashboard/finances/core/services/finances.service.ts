@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DatesService } from '../../../../shared/services/global/dates.service';
@@ -73,8 +73,14 @@ export class FinancesService {
   public getNoCompleteDebts(): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`${this.URL}/getNoCompleteDebts`);
   }
-  public getExpensesByWeek(): Observable<HttpResponse> {
-    return this.http.get<HttpResponse>(`${this.URL}/getExpensesByWeek`);
+  public getExpensesByWeek(dateFormatted: string): Observable<HttpResponse> {
+    const options = {
+      params: new HttpParams().set('date', dateFormatted),
+    };
+    return this.http.get<HttpResponse>(
+      `${this.URL}/getExpensesByWeek`,
+      options
+    );
   }
 
   // Income

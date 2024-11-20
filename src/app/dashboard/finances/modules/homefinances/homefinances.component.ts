@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { DebtsComponent } from '../../components/debts/debts.component';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 import { ExpensesweekComponent } from '../../components/expensesweek/expensesweek.component';
+import { FormsModule } from '@angular/forms';
+import { DatesService } from '../../../../shared/services/global/dates.service';
 
 @Component({
   selector: 'app-homefinances',
@@ -25,6 +27,7 @@ import { ExpensesweekComponent } from '../../components/expensesweek/expenseswee
     BillsgraphicComponent,
     DebtsComponent,
 
+    FormsModule,
     NgxChartsModule,
   ],
   templateUrl: './homefinances.component.html',
@@ -75,8 +78,11 @@ export class HomefinancesComponent implements OnInit {
     },
   ];
 
+  public weeklyExpense: any;
+
   constructor(
     private financesService: FinancesService,
+    private datesService: DatesService,
     private router: Router
   ) {}
 
@@ -134,6 +140,9 @@ export class HomefinancesComponent implements OnInit {
         };
       },
     });
+
+    // Initialize
+    this.configAnimationInputDate();
   }
 
   public showDetails(id: number) {
@@ -223,5 +232,22 @@ export class HomefinancesComponent implements OnInit {
   }
   private showBills() {
     this.router.navigate([this.router.url, 'showBills']);
+  }
+  private configAnimationInputDate() {
+    const input = document.getElementById('weeklyexpense') as HTMLInputElement;
+    function addFocus(this: HTMLInputElement) {
+      const parent = this.parentNode as HTMLElement;
+      parent.classList.add('focus');
+    }
+    function removeFocus(this: HTMLInputElement) {
+      const parent = this.parentNode as HTMLElement;
+      if (this.value == '') {
+        parent.classList.remove('focus');
+      }
+    }
+    input.addEventListener('focus', addFocus);
+    input.addEventListener('blur', removeFocus);
+    input.focus();
+    this.weeklyExpense = this.datesService.getNow().split(' ')[0];
   }
 }

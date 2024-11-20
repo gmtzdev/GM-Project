@@ -19,8 +19,15 @@
     <section class="me-card main-background">
         <div class="header">
             <h4>Expenses for the week</h4>
+            <div class="my-input" style="width: 150px;">
+                <div class="icon">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <label for="created_at" style="transform: translate(60%, -50%);">Date</label>
+                <input type="date" id="weeklyexpense" class="input" [(ngModel)]="this.weeklyExpense">
+            </div>
         </div>
-        <app-expensesweek />
+        <app-expensesweek [date]="this.weeklyExpense"/>
     </section>
 
     <!-- bills -->
