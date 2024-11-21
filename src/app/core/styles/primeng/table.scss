@@ -1,0 +1,280 @@
+:host ::ng-deep {
+    p-table {
+      border-radius: 5px;
+  
+      /* Header */
+  
+      .p-datatable .p-datatable-header {
+        background-color: rgba(0, 0, 0, 0.849);
+  
+        // color: #868c9b;
+        color: #ffffff;
+  
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-width: 0 0 1px 0;
+        padding: 0.571rem 0.571rem;
+        font-weight: 500;
+      }
+  
+      .table-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+  
+        .title-and-btn{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+  
+        .p-input-icon-left {
+          display: flex;
+          align-items: center;
+          background-color: rgb(218, 221, 234);
+          border-radius: 5px;
+          padding: 5px 5px;
+  
+          .icon {
+            color: #000;
+            margin-right: 5px;
+          }
+  
+          input {
+            background-color: transparent;
+            outline: none;
+            border: none;
+          }
+        }
+      }
+  
+      /* Table */
+      tr {
+        font-size: 13px;
+  
+        th {
+          font-size: 13px;
+  
+          .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+  
+            .header-icons {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 52px;
+  
+              p-sortIcon {
+                sortalticon {
+                  svg {
+                    width: 12px;
+                  }
+                }
+              }
+  
+              p-columnFilter {
+                button {
+                  background-color: #f7f7f7;
+                  border-radius: 4px;
+                  width: 20px;
+                  height: 20px;
+                  padding-bottom: 5px;
+  
+                  filtericon {
+                    height: 10px;
+  
+                    svg {
+                      width: 13px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+  
+          .column-header-center {
+            display: grid;
+            place-content: center;
+          //   justify-content: center;
+          //   align-items: center;
+          }
+        }
+  
+        th.medium-width {
+          min-width: 100px;
+        }
+  
+        th.small-width {
+          min-width: 50px;
+        }
+  
+        td {
+          padding: 5px;
+  
+          .icon-container {
+            width: 100%;
+            display: grid;
+            place-content: center;
+  
+            i:hover {
+              color: var(--blue-600);
+              transform: scale(1.05);
+            }
+          }
+  
+          .origin-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+  
+          .checkbox-container {
+            width: 100%;
+            display: grid;
+            place-content: center;
+          }
+        }
+      }
+  
+      tr.p-selectable-row:hover {
+        transform: scale(1.005);
+        cursor: pointer;
+      }
+  
+      .p-datatable .p-sortable-column.p-highlight {
+        background-color: #f9fafb;
+        color: #000;
+      }
+  
+      .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+        color: #000;
+      }
+  
+      .p-datatable .p-datatable-thead > tr > th {
+        padding: 12px;
+      }
+  
+      // .p-datatable .p-datatable-tbody > tr {
+      //     background: #2e323f;
+      //     color: #FFFFFF;
+      //     transition: box-shadow 0.2s;
+      // }
+  
+      // TODO Investigar para que es esto
+      .p-progressbar {
+        height: 0.5rem;
+        background-color: #d8dadc;
+  
+        .p-progressbar-value {
+          background-color: #607d8b;
+        }
+      }
+  
+      /* Footer */
+      .p-paginator {
+        .p-paginator-current {
+          font-size: 13px;
+          margin-left: auto;
+        }
+  
+        .p-paginator-pages {
+          .p-paginator-page {
+            font-size: 13px;
+          }
+        }
+  
+        .p-dropdown {
+          height: 30px;
+  
+          .p-dropdown-panel {
+            margin-left: -2px;
+          }
+        }
+      }
+  
+      /* DropDown */
+      .p-dropdown .p-dropdown-label {
+        font-size: 13px;
+        padding: 5px 0px 0px 5px;
+      }
+  
+      .p-dropdown .p-dropdown-trigger {
+        width: 20px;
+  
+        svg {
+          width: 10px;
+        }
+      }
+      .p-dropdown-panel {
+        background: #ffffff;
+        color: #4b5563;
+        border: 0 none;
+        border-radius: 6px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        font-size: 13px;
+  
+        .p-dropdown-items-wrapper {
+          // background-color: red;
+        }
+  
+        .p-dropdown-items-wrapper::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+          display: none;
+        }
+        .p-dropdown-items-wrapper::-webkit-scrollbar-thumb {
+          background: var(--secondary-color);
+          border-radius: 4px;
+        }
+        .p-dropdown-items-wrapper::-webkit-scrollbar-track {
+          background: #d4d4d4;
+          border-radius: 4px;
+        }
+  
+        .p-dropdown-items {
+          padding: 5px 6px;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+  
+          .p-dropdown-item {
+            margin: 0;
+            padding: 6px 8px;
+            border: 0 none;
+            color: #4b5563;
+            background: transparent;
+            transition: box-shadow 0.2s;
+            border-radius: 4px;
+            text-align: center;
+          }
+  
+          .p-dropdown-item.p-highlight.p-focus {
+            background: rgba(59, 130, 246, 0.24);
+          }
+  
+          .p-dropdown-item.p-highlight {
+            color: #1d4ed8;
+            background: #eff6ff;
+          }
+  
+          .p-dropdown-item:hover {
+            color: #1d4ed8;
+            background: #dfebfc;
+          }
+        }
+      }
+  
+      /* Checkbox */
+      .p-checkbox {
+        display: inline-flex;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+        vertical-align: bottom;
+        position: relative;
+      }
+    }
+}
+  

@@ -2,7 +2,7 @@
 <p-table #dt [value]="incomes" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true" [rows]="10"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 15, 20, 25, 30, 35, 40, 45, 50]" [loading]="loading"
     [paginator]="true" currentPageReportTemplate="{first} to {last}.    Total: {totalRecords}" [filterDelay]="0"
-    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+    [globalFilterFields]="globalFilterOptions">
 
     <ng-template pTemplate="caption">
         <div class="table-header">
@@ -16,8 +16,7 @@
                 <div class="icon">
                     <i class="pi pi-search"></i>
                 </div>
-                <input [(ngModel)]="globalFilter" pInputText type="text"
-                    (input)="dt.filterGlobal(globalFilter, 'contains')" placeholder="Global Search" />
+                <input [(ngModel)]="globalFilter" pInputText type="text" (input)="dt.filterGlobal(globalFilter, 'contains')" placeholder="Global Search" />
             </span>
 
         </div>
@@ -70,41 +69,37 @@
             </th>
 
             <!-- Date -->
-            <th pSortableColumn="date" class="medium-width">
+            <th pSortableColumn="created_at" class="medium-width">
                 <div class="column-header">
                     <span>Date</span>
 
                     <div class="header-icons">
-                        <p-sortIcon field="date"></p-sortIcon>
-                        <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                        <p-sortIcon field="created_at"></p-sortIcon>
+                        <p-columnFilter type="date" field="created_at" display="menu"></p-columnFilter>
                     </div>
                 </div>
             </th>
 
             <!-- Origin -->
-            <th pSortableColumn="representative.name" class="medium-width">
+            <th pSortableColumn="origin.name" class="medium-width">
 
                 <div class="column-header">
 
                     <span>Origin</span>
 
                     <div class="header-icons">
-                        <p-sortIcon field="representative.name"></p-sortIcon>
-                        <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false"
-                            [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                        <p-sortIcon field="origin.name"></p-sortIcon>
+                        <p-columnFilter field="origin" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                             <ng-template pTemplate="header">
-                                <div class="px-3 pt-3 pb-0">
-                                    <span class="font-bold">Agent Picker</span>
+                                <div class="picker-title">
+                                    <span>Origin Picker</span>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any"
+                                <p-multiSelect [ngModel]="value" [options]="origins" placeholder="Any"
                                     (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="inline-block vertical-align-middle">
-                                            <img [alt]="option.label"
-                                                src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                                width="24" class="vertical-align-middle" />
                                             <span class="ml-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>

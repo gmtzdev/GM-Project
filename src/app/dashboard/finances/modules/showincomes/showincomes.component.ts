@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { FinancesService } from '../../core/services/finances.service';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
 import { Income } from '../../core/models/database/Income.model';
+import { Origin } from '../../core/models/database/Origin.model';
 
 @Component({
   selector: 'app-showincomes',
@@ -27,7 +28,7 @@ import { Income } from '../../core/models/database/Income.model';
   templateUrl: './showincomes.component.html',
   styleUrls: [
     './showincomes.component.scss',
-    '/src/app/shared/styles/gm-primeng-table.scss',
+    '/src/app/core/styles/primeng/table.scss',
   ],
 })
 export class ShowincomesComponent implements OnInit {
@@ -35,14 +36,14 @@ export class ShowincomesComponent implements OnInit {
 
   selectedCustomers!: Customer[];
 
-  representatives!: Representative[];
+  origins!: Origin[];
 
   statuses!: any[];
 
   loading: boolean = true;
 
   activityValues: number[] = [0, 100];
-
+  public globalFilterOptions: string[] = ['concept', 'amount', 'origin.name'];
   public globalFilter: string = '';
 
   constructor(private financesServices: FinancesService) {}
@@ -51,7 +52,6 @@ export class ShowincomesComponent implements OnInit {
     this.financesServices
       .getIncomes()
       .subscribe((responseIncomes: HttpResponse) => {
-        console.log(responseIncomes);
         this.incomes = responseIncomes.data as Income[];
         this.loading = false;
         this.incomes.forEach(
@@ -59,18 +59,7 @@ export class ShowincomesComponent implements OnInit {
         );
       });
 
-    this.representatives = [
-      { name: 'Amy Elsner', image: 'amyelsner.png' },
-      { name: 'Anna Fali', image: 'annafali.png' },
-      { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-      { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-      { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-      { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-      { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-      { name: 'Onyama Limba', image: 'onyamalimba.png' },
-      { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-      { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
-    ];
+    this.initialize();
 
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
@@ -80,6 +69,16 @@ export class ShowincomesComponent implements OnInit {
       { label: 'Renewal', value: 'renewal' },
       { label: 'Proposal', value: 'proposal' },
     ];
+  }
+
+  private initialize() {
+    this.financesServices.getOrigins().subscribe({
+      next: (response: HttpResponse) => {
+        if (response.success) {
+          this.origins = response.data;
+        }
+      },
+    });
   }
 
   public getSeverity(status: string): string | undefined {
@@ -103,25 +102,13 @@ export class ShowincomesComponent implements OnInit {
   }
 }
 
-interface Country {
-  name?: string;
-  code?: string;
-}
-
-interface Representative {
-  name?: string;
-  image?: string;
-}
-
 interface Customer {
   id?: number;
   name?: string;
-  country?: Country;
   company?: string;
   date?: string | Date;
   status?: string;
   activity?: number;
-  representative?: Representative;
   verified?: boolean;
   balance?: number;
 }

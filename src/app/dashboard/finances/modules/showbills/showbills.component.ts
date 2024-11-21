@@ -42,7 +42,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './showbills.component.html',
   styleUrls: [
     './showbills.component.scss',
-    '/src/app/shared/styles/gm-primeng-table.scss',
+    '/src/app/core/styles/primeng/table.scss',
   ],
   providers: [MessageService],
 })
