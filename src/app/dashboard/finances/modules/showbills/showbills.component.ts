@@ -182,4 +182,8 @@ export class ShowbillsComponent {
   public editBill(id: number) {
     this.router.navigate(['finances', 'editBills', id]);
   }
+
+  public navigateTo(destination: string) {
+    window.open(destination, '_blank');
+  }
 }
