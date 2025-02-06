@@ -1,3 +1,5 @@
+import { List } from "./List.model";
+
 export class Task {
   public id: number;
   public title: string;
@@ -9,7 +11,7 @@ export class Task {
   public created_at: Date;
   public updated_at: Date;
   public deleted_at: Date;
-  //   public list!: List;
+  public list!: List;
   //   public categories!: CategoryTask[];
 
   constructor(task: Task) {

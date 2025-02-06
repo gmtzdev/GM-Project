@@ -18,6 +18,8 @@ import { CategoryTask } from '../../core/models/database/CategotyTask.model';
 import { SelectableList } from '../../core/models/class/SelectableList.model';
 import { CommonModule } from '@angular/common';
 import { SelectableCategoryTask } from '../../core/models/class/SelectableCategoryTask.model';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-todolist',
@@ -28,11 +30,14 @@ import { SelectableCategoryTask } from '../../core/models/class/SelectableCatego
     CheckboxModule,
     OverlayPanelModule,
     CommonModule,
+    ToastModule
   ],
+  providers: [MessageService],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.scss',
 })
 export class TodolistComponent implements OnInit {
+  private selectedList!: List;
   private onSave: boolean = false;
   private defaultList: List = new List({
     id: 1,
@@ -43,10 +48,16 @@ export class TodolistComponent implements OnInit {
     tasks: [],
   });
 
+  //==== Methods to show Toast ====\\
+  private showToast(severity:string, summary: string, detail: string): void {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail });
+  }
+
   constructor(
     private readonly taskService: TaskService,
     private readonly listService: ListService,
-    private readonly categoryService: CategoryService
+    private readonly categoryService: CategoryService,
+    private readonly messageService: MessageService
   ) {}
 
   public lists: SelectableList[] = [];
@@ -66,11 +77,15 @@ export class TodolistComponent implements OnInit {
   }
 
   private async initialize() {
+    // Get the default list to show some task
+    // and defined the currently selected list
+    this.selectedList = this.defaultList;
     this.taskService.getTaskListOfFilter(this.defaultList).subscribe({
       next: (tasks: Task[]) => {
         this.tasks = tasks;
       },
     });
+
     this.listService.getAllList().subscribe({
       next: (lists: List[]) => {
         for (const [index, l] of lists.entries()) {
@@ -101,12 +116,26 @@ export class TodolistComponent implements OnInit {
     return formGroup;
   }
 
+  /**
+   * This method excecute when finish a taks and past it
+   * to the finish tasks list.
+   * Confirm the action with a message toast.
+   * 
+   * @param task 
+   * @param ready 
+   * @return { void }
+   */
   public setReady(task: Task, ready: boolean): void {
     this.taskService.setReady(task.id, ready).subscribe({
       next: (response: HttpResponse) => {
         if (!response.success) {
           task.ready = !ready;
+          return
         }
+        if(ready)
+          this.showToast('success', 'Success', 'The task was completed succcessfully');
+        else
+          this.showToast('info', 'Success', 'The task was rejected');
       },
       error: (response: HttpResponse) => {
         // TODO Implements messages toast
@@ -138,20 +167,30 @@ export class TodolistComponent implements OnInit {
     }
     this.taskService.saveTask(this.createTaskDto.value).subscribe({
       next: (response: Task) => {
-        // TODO Implements message toast
-        // if (!response.id) {}
-        this.tasks.push(response);
+        if (!response.id) {
+          return;
+        }
+        if(this.selectedList.id === response.list.id){
+          this.tasks.push(response);
+        }
         this.createTaskDto = this.resetForm(this.createTaskDto);
         this.onSave = false;
+        this.showToast('success', 'Success', 'Task was saved successfully');
       },
     });
   }
+  
 
   public findList(id: number, filter: number): void {
     this.lists.forEach((value) => {
       value.selected = false;
       if (filter !== 0) return;
       if (value.id === id) {
+        this.defaultList = value;
+
+        // To save the currently selected list
+        this.selectedList = value;
+
         value.selected = true;
         this.createTaskDto.controls['list'].setValue(value);
         this.taskService.getTaskListOfFilter(value).subscribe({
