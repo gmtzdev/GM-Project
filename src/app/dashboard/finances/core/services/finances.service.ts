@@ -46,6 +46,9 @@ export class FinancesService {
   public getDaysToPayCreditCard(): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`${this.URL}/getDaysToPayCreditCard`);
   }
+  public getDaysToCutOffCreditCard(): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`${this.URL}/getDaysToCutOffCreditCard`);
+  }
   public getAmountSpendWithCreditCard(): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(
       `${this.URL}/getAmountSpendWithCreditCard`
@@ -81,6 +84,9 @@ export class FinancesService {
       `${this.URL}/getExpensesByWeek`,
       options
     );
+  }
+  public passToNextMonthCreditCard(): Observable<HttpResponse>{
+    return this.http.post<HttpResponse>(`${this.URL}/passToNextMonthCreditCard`, {});
   }
 
   // Income

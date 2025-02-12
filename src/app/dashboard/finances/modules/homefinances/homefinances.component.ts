@@ -7,7 +7,7 @@ import { BillscategoryComponent } from '../../components/billscategory/billscate
 import { BillsgraphicComponent } from '../../components/billsgraphic/billsgraphic.component';
 import { CardHome } from '../../core/models/CardHome.model';
 import { FinancesService } from '../../core/services/finances.service';
-import { map } from 'rxjs';
+import { concatMap, map, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { DebtsComponent } from '../../components/debts/debts.component';
 import { HttpResponse } from '../../../../shared/models/http/HttpResponse.model';
@@ -123,10 +123,33 @@ export class HomefinancesComponent implements OnInit {
         },
       });
 
-    this.financesService.getDaysToPayCreditCard().subscribe({
+    this.financesService.getDaysToPayCreditCard().pipe(
+      concatMap((response: HttpResponse)=>{
+          if(!response) throw new Error('The response is not available');
+          let daysLeftToPay = response.data;
+          if(daysLeftToPay <= 0){
+            this.cards[3].title = `Cut-Off Date In`;
+            return this.financesService.getDaysToCutOffCreditCard();
+          }
+          return of(response);
+      }) 
+    ).subscribe({
       next: (response: HttpResponse) => {
         if (!response.success) return;
         this.cards[3].subject = `${response.data} days`;
+
+        // If days to next cutt-off date is less of -1
+        // caulculate the next month to pay credit card
+        if(response.data <= -1){
+          this.financesService.passToNextMonthCreditCard().subscribe({
+            next: (response: HttpResponse) => {
+              if(response.success){
+                this.cards[3].title = `Pay at`;
+                this.cards[3].subject = `${response.data.dayDifference} days`;
+              }
+            }
+          });
+        }
       },
     });
 

@@ -86,7 +86,6 @@ export class ExpensesweekComponent implements OnInit {
     this.financesService.getExpensesByWeek(dateFormatted).subscribe({
       next: (response: HttpResponse) => {
         if (response.success) {
-          console.log(response);
           this.week = response.data.week;
           this.option = {
             tooltip: {
