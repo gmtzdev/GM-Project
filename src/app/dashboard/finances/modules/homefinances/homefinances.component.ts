@@ -158,6 +158,7 @@ export class HomefinancesComponent implements OnInit {
         if (!response.success) return;
         this.cards[3].aditional.push(`${response.data.amount}`);
         this.cards[3].aditional.push(`${response.data.percentage}`);
+        this.cards[3].aditional.push(`${response.data.pay}`);
         this.cards[3] = {
           ...this.cards[3],
         };

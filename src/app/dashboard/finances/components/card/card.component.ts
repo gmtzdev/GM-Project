@@ -52,6 +52,15 @@ import { FinancesService } from '../../core/services/finances.service';
         </div>
         <div #toolTipArrow class="triangle"></div>
       </div>
+
+      <div class="checkbox-readypay-container">
+        <div class="checkbox-readypay-body">
+          <input id="payCheckBox" type="checkbox" disabled [checked]="this.wasPaid">
+          <label for="payCheckBox">
+            <i class="fa-solid fa-check"></i>
+          </label>
+        </div>
+      </div>
       }
     </div>
   `,
@@ -79,6 +88,7 @@ export class CardComponent {
 
   public amount: string = '';
   public percentage: string = '';
+  public wasPaid: boolean = false;
 
   constructor(
     private readonly renderer2: Renderer2,
@@ -96,6 +106,7 @@ export class CardComponent {
               Number.parseInt(this.card.aditional[0])
             );
             this.percentage = `${this.card.aditional[1]}%`;
+            this.wasPaid = this.card.aditional[2] === 'true';
           }
         }
       }

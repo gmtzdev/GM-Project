@@ -178,4 +178,43 @@
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
     }
   }
+
+  .checkbox-readypay-container{
+    position: absolute;
+    z-index: 15;
+    right: 45px;
+    bottom: 15px;
+    height: 20px;
+    cursor: pointer;
+
+    .checkbox-readypay-body{
+      display: flex;
+      align-items: center;
+
+      input[type="checkbox"] {
+        display: none;
+      }
+      label {
+        display: grid;
+        place-content: center;
+        width: 20px;
+        height: 20px;
+        background-color: lightgray;
+        border-radius: 5px;
+        cursor: pointer;
+
+        i{
+          color: transparent;
+        }
+      }
+      
+      /* Changes the color when the checkbox is checked */
+      input[type="checkbox"]:checked + label {
+        background-color: green; /* Change color when selected */
+        i{
+          color: #fff;
+        }
+      }
+    }
+  }
 }
