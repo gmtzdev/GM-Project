@@ -26,9 +26,15 @@
     }
 
     .ca-container {
-        padding: 20px 0;
+        padding: 20px 35px;
         display: flex;
         justify-content: space-between;
+    }
+
+    .only-one-container {
+        padding: 20px 35px;
+        display: flex;
+        justify-content: center
     }
 
     .o-container {

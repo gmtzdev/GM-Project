@@ -1,0 +1,341 @@
+.wrap {
+  display: flex;
+  position: fixed;
+  height: 0px;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 510;
+  justify-content: center;
+  margin: 50 auto;
+  backdrop-filter: blur(1px);
+
+  .modal-wrap {
+    display: grid;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+
+    top: -50px;
+    left: -50px;
+    transform: translate(-50%, -65%);
+
+    -webkit-perspective: 800;
+    perspective: 800;
+    opacity: 0;
+
+    place-content: center;
+
+    .modal {
+      display: grid;
+      place-content: center;
+      position: relative;
+
+      height: 70px;
+      width: 70px;
+
+    //   transform: translate(-50%, -50%);
+
+      // background-color: rgb(18, 16, 39);
+      // background-color: #00000079;
+      // background-color: rgba(0, 0, 0, 0.75);
+      // background-color: rgba(0, 0, 0, 0.836);
+      background-color: rgba(0, 0, 0, 0.89);
+
+      transform-style: preserve-3d;
+      transition: 0.7s ease;
+      box-shadow: 0px 10px 15px -5px rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 10px;
+
+      .forward,
+      .back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      .back {
+        transform: rotateY(180deg);
+      }
+
+      .forward {
+        display: grid;
+        place-content: center;
+        font-size: 16px;
+      }
+    }
+
+    .modal.rotate {
+      width: 600px;
+      height: var(--height-modal);
+      transform: rotateY(-180deg);
+    }
+  }
+
+  .modal-wrap.show {
+    opacity: 1;
+  }
+}
+
+
+
+.form {
+  display: grid;
+  position: fixed;
+  width: 0px;
+  height: 0px;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+
+  opacity: 1;
+  z-index: 520;
+
+  place-content: center;
+  transition: all 0.5s ease;
+
+  form {
+    display: block;
+    width: 600px;
+    height: var(--height-modal);
+    padding: 30px 20px;
+    opacity: 0;
+    transform: scale(0);
+    position: relative;
+
+    transition: all 0.75s ease;
+    overflow-y: scroll;
+
+
+    .container{
+        .amount-container{
+            display: grid;
+            grid-template-columns: 40% 1fr;
+
+            .vault-container{
+                display: grid;
+                place-items: center;
+
+                .vault-avatar{
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    display: grid;
+                    place-content: center;
+                    border-radius: 50%;
+                    font-size: 40px;
+                }
+            }
+            
+
+            .input-container{
+                
+            }
+        }
+    }
+
+    .property {
+      width: 100%;
+      border-bottom: 1px solid var(--secondary-color-black);
+      padding: 15px;
+
+      .header {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          width: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .content {
+          display: flex;
+          align-items: center;
+          padding-left: 30px;
+
+          textarea {
+            background: transparent;
+            resize: none;
+            form-sizing: content;
+            color: #fff;
+            height: 40px;
+            border: none;
+            user-select: none;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            overflow: hidden;
+          }
+
+          input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            width: 100%;
+          }
+    
+          input::placeholder {
+            color: rgb(149, 151, 155);
+          }
+
+          span {
+            color: rgb(149, 151, 155);
+
+            b{
+              color: #fff;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .aditional-input {
+          display: grid;
+          place-content: center;
+          margin-left: auto;
+        }
+      }
+
+      .body {
+        .range {
+          display: flex;
+          justify-content: space-around;
+          width: var(--height-modal);
+          margin: 10px auto 0 auto;
+
+          .date-of-event {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .hour {
+              padding-top: 10px;
+            }
+          }
+
+          .arrow {
+            display: grid;
+            place-items: center;
+          }
+        }
+
+        .alert-options {
+          margin-top: 15px;
+          padding: 0 15px;
+          display: flex;
+          justify-content: space-between;
+
+          ::ng-deep p-checkbox {
+            .p-checkbox {
+              width: 15px;
+              height: 15px;
+
+              .p-checkbox-box {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+        }
+
+        .repeat-options {
+          margin-top: 15px;
+          padding: 0 15px;
+          display: flex;
+          justify-content: space-between;
+
+          ::ng-deep p-checkbox {
+            .p-checkbox {
+              width: 15px;
+              height: 15px;
+
+              .p-checkbox-box {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .btns-container {
+      display: flex;
+      padding-top: 10px;
+
+      button {
+        margin-left: auto;
+      }
+    }
+  }
+
+  form::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    display: none;
+  }
+
+  form::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 4px;
+  }
+
+  form::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color-black);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  // form::-webkit-scrollbar-thumb:active{
+  //     // background: yellow;
+  // }
+
+  form::-webkit-scrollbar-track {
+    background: #d4d4d4;
+    border-radius: 4px;
+  }
+}
+
+.form.pop {
+  width: 600px;
+  height: var(--height-modal);
+
+  form {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+:host {
+  ::ng-deep .prime-inputSwitch-override {
+    display: grid;
+    height: 13px;
+    width: 24px;
+
+    .p-inputswitch-slider {
+      height: 13px;
+      width: 24px;
+      outline: none;
+    }
+
+    .p-inputswitch-slider::before {
+      height: 9px;
+      width: 9px;
+      margin-top: -4.5px;
+      left: 0;
+    }
+
+    &.p-inputswitch-checked {
+      .p-inputswitch-slider::before {
+        transform: translateX(13px);
+      }
+    }
+  }
+}

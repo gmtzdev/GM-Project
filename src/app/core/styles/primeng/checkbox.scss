@@ -1,0 +1,27 @@
+
+$width-cb: 18px;
+$height-cb: 18px;
+
+.p-checkbox {
+    width: $width-cb;
+    height: $height-cb;
+    .p-checkbox-box{
+        width: $width-cb;
+        height: $height-cb;
+    }
+    
+    .p-checkbox-box.p-highlight {
+        border-color: #3bf64b;
+        background: #3bf64b;
+    }
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0px #bffec7;
+    border-color: #3bf64b;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    border-color: #3bf64b;
+}

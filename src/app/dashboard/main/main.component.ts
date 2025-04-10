@@ -7,7 +7,7 @@ import { CalendarComponent } from '../../global/calendar/calendar.component';
 import { TasksComponent } from '../../global/tasks/tasks.component';
 import { WidgetsComponent } from '../../global/widgets/widgets.component';
 import { GeneralService } from '../../shared/services/global/general.service';
-import { lastValueFrom } from 'rxjs';
+import { HttpResponse } from '../../shared/models/http/HttpResponse.model';
 
 @Component({
   selector: 'app-main',
@@ -22,18 +22,16 @@ import { lastValueFrom } from 'rxjs';
     // Global
     CalendarComponent,
     TasksComponent,
-    WidgetsComponent
+    WidgetsComponent,
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit {
   public collapse: boolean = false;
   public navitems: NavItem[] = [];
 
-  constructor(
-    private generalService: GeneralService
-  ) { }
+  constructor(private generalService: GeneralService) {}
 
   public collapseVerticalMenu() {
     this.collapse = !this.collapse;
@@ -44,13 +42,17 @@ export class MainComponent implements OnInit {
   }
 
   public async initializer() {
-    this.navitems = await lastValueFrom(this.generalService.getNavItems());
-    this.navitems.forEach((n) => {
-      if (n.route === '') {
-        n.exact = true;
-      }else{
-        n.exact = false;
-      }
-    })
+    this.generalService.getNavItems().subscribe({
+      next: (response: HttpResponse) => {
+        this.navitems = response.data as NavItem[];
+        this.navitems.forEach((n) => {
+          if (n.route === '') {
+            n.exact = true;
+          } else {
+            n.exact = false;
+          }
+        });
+      },
+    });
   }
 }

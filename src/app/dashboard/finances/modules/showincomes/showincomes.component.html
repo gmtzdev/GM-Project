@@ -1,0 +1,170 @@
+<div style="background-color:#fff;">
+<p-table #dt [value]="incomes" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true" [rows]="10"
+    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 15, 20, 25, 30, 35, 40, 45, 50]" [loading]="loading"
+    [paginator]="true" currentPageReportTemplate="{first} to {last}.    Total: {totalRecords}" [filterDelay]="0"
+    [globalFilterFields]="globalFilterOptions">
+
+    <ng-template pTemplate="caption">
+        <div class="table-header">
+
+            <div class="title-and-btn">
+                <h4>List of Incomes</h4>
+                <button class="btn btn-green">Analitycs</button>
+            </div>
+
+            <span class="p-input-icon-left">
+                <div class="icon">
+                    <i class="pi pi-search"></i>
+                </div>
+                <input [(ngModel)]="globalFilter" pInputText type="text" (input)="dt.filterGlobal(globalFilter, 'contains')" placeholder="Global Search" />
+            </span>
+
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+
+            <!-- Selected -->
+            <th class="small-width">
+                <div class="column-header-center">
+                    <p-tableHeaderCheckbox />
+                </div>
+            </th>
+
+            <!-- Update -->
+            <th class="small-width">
+
+                <div class="column-header-center">
+                    <span>Update</span>
+                </div>
+
+            </th>
+
+            <!-- Concept -->
+            <th pSortableColumn="concept" class="medium-width">
+                <div class="column-header">
+
+                    <span>Concept</span>
+
+                    <div class="header-icons">
+                        <p-sortIcon field="concept"></p-sortIcon>
+                        <p-columnFilter type="text" field="concept" display="menu"></p-columnFilter>
+                    </div>
+
+                </div>
+            </th>
+
+            <!-- Amount -->
+            <th pSortableColumn="amount" class="medium-width">
+                <div class="column-header">
+
+                    <span>Amount</span>
+
+                    <div class="header-icons">
+                        <p-sortIcon field="amount"></p-sortIcon>
+                        <p-columnFilter type="numeric" field="amount" display="menu" currency="MXN"></p-columnFilter>
+                    </div>
+                </div>
+            </th>
+
+            <!-- Date -->
+            <th pSortableColumn="created_at" class="medium-width">
+                <div class="column-header">
+                    <span>Date</span>
+
+                    <div class="header-icons">
+                        <p-sortIcon field="created_at"></p-sortIcon>
+                        <p-columnFilter type="date" field="created_at" display="menu"></p-columnFilter>
+                    </div>
+                </div>
+            </th>
+
+            <!-- Origin -->
+            <th pSortableColumn="origin.name" class="medium-width">
+
+                <div class="column-header">
+
+                    <span>Origin</span>
+
+                    <div class="header-icons">
+                        <p-sortIcon field="origin.name"></p-sortIcon>
+                        <p-columnFilter field="origin" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                            <ng-template pTemplate="header">
+                                <div class="picker-title">
+                                    <span>Origin Picker</span>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-multiSelect [ngModel]="value" [options]="origins" placeholder="Any"
+                                    (onChange)="filter($event.value)" optionLabel="name">
+                                    <ng-template let-option pTemplate="item">
+                                        <div class="inline-block vertical-align-middle">
+                                            <span class="ml-1 mt-1">{{ option.name }}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-multiSelect>
+                            </ng-template>
+                        </p-columnFilter>
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-income>
+        <tr class="p-selectable-row">
+
+            <!-- Selected -->
+            <td>
+                <div class="checkbox-container">
+                    <p-tableCheckbox [value]="income" />
+                </div>
+            </td>
+
+            <!-- Update -->
+            <td>
+                <span class="p-column-title">Update</span>
+                <div class="icon-container">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+            </td>
+
+            <!-- Concept -->
+            <td>
+                <span class="p-column-title">Name</span>
+                {{ income.concept }}
+            </td>
+
+            <!-- Amount -->
+            <td>
+                <span class="p-column-title">Amount</span>
+                {{ income.amount | currency: 'MXN':'symbol' }}
+            </td>
+
+            <!-- Date -->
+            <td>
+                <span class="p-column-title">Date</span>
+                {{ income.created_at | date: 'dd/MM/yyyy' }}
+            </td>
+
+            <!-- Origin -->
+            <td>
+                <span class="p-column-title">Representative</span>
+                <div class="origin-container">
+                    <!-- <img [alt]="income.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                        width="32" style="vertical-align: middle" /> -->
+
+                    <span class="ml-1 vertical-align-middle">{{ income.origin.name }}</span>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

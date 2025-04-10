@@ -1,0 +1,10 @@
+<div class="container">
+    @for (debt of this.debts; track debt.id) {
+    <app-debt-graph 
+        [id]="debt.id"
+        [title]="debt.debt" 
+        [maxValue]="debt.amount"
+        [accumulatedAmount]="debt.paid">
+    </app-debt-graph>
+    }
+</div>

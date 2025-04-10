@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { FinancesService } from '../../../../shared/services/finances/finances.service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FinancesService } from '../../core/services/finances.service';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { Location } from '@angular/common';
 import { ErrorModal } from '../../../../shared/classes/modals/ErrorModal';
@@ -12,36 +17,35 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
   standalone: true,
   imports: [ReactiveFormsModule, AutocompleteLibModule],
   templateUrl: './addcategory.component.html',
-  styleUrl: './addcategory.component.scss'
+  styleUrl: './addcategory.component.scss',
 })
 export class AddcategoryComponent {
-  
   keyword: string = 'name';
 
   constructor(
     private financesService: FinancesService,
     private location: Location
-  ) { }
+  ) {}
 
   public addCategory: FormGroup = new FormGroup({
-    'name': new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
   });
 
   async ngOnInit(): Promise<void> {
     const inputs = document.querySelectorAll('.input');
     function addFocus(this: any) {
-      let parent = this.parentNode;
-      parent.classList.add("focus");
+      const parent = this.parentNode;
+      parent.classList.add('focus');
     }
     function removeFocus(this: any) {
-      let parent = this.parentNode;
-      if (this.value == "") {
-        parent.classList.remove("focus");
+      const parent = this.parentNode;
+      if (this.value == '') {
+        parent.classList.remove('focus');
       }
     }
-    inputs.forEach(input => {
-      input.addEventListener("focus", addFocus);
-      input.addEventListener("blur", removeFocus);
+    inputs.forEach((input) => {
+      input.addEventListener('focus', addFocus);
+      input.addEventListener('blur', removeFocus);
     });
     function animateBtn(this: any) {
       this.classList.add('animate');
@@ -50,11 +54,11 @@ export class AddcategoryComponent {
       }, 600);
     }
     const btns = document.querySelectorAll('.btn');
-    btns.forEach(btn => {
-      btn.addEventListener("click", animateBtn);
-    })
+    btns.forEach((btn) => {
+      btn.addEventListener('click', animateBtn);
+    });
 
-    await this.initializer()
+    await this.initializer();
   }
   private async initializer() {
     // const resOrigins = await lastValueFrom(this.financesService.getOrigins());
@@ -71,26 +75,31 @@ export class AddcategoryComponent {
     this.dynamicVerify(id);
     id = `ng-autocomplete-${id}`;
     const label = document.getElementById(id) as HTMLDivElement;
-    if (this.addCategory.value.origin == "" || this.addCategory.value.origin == null)
+    if (
+      this.addCategory.value.origin == '' ||
+      this.addCategory.value.origin == null
+    )
       label.classList.remove('focus');
   }
   public cancel() {
     setTimeout(() => {
       this.location.back();
-    }, 500)
+    }, 500);
   }
   public async saveIncome() {
     const btnSave = document.getElementById('saveIncome') as HTMLButtonElement;
     btnSave.disabled = true;
     if (!this.addCategory.valid) {
-      ErrorModal.Center.fire({ 'title': 'Invalid form' });
+      ErrorModal.Center.fire({ title: 'Invalid form' });
       this.showInvalids();
       btnSave.disabled = false;
       return;
     }
-    const result = await lastValueFrom(this.financesService.saveIncome(this.addCategory.value));
+    const result = await lastValueFrom(
+      this.financesService.saveIncome(this.addCategory.value)
+    );
     if (!result.success) {
-      alert('Show Error')
+      alert('Show Error');
       return;
     }
     setTimeout(() => {
@@ -101,11 +110,13 @@ export class AddcategoryComponent {
   }
   private resetForm() {
     this.addCategory.reset();
-    const inputs = document.querySelectorAll('.input') as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll(
+      '.input'
+    ) as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
-      let parent = inputs[i].parentNode as HTMLDivElement;
-      if (inputs[i].value == "") {
-        parent.classList.remove("focus");
+      const parent = inputs[i].parentNode as HTMLDivElement;
+      if (inputs[i].value == '') {
+        parent.classList.remove('focus');
       }
     }
     this.onClosed('origin');

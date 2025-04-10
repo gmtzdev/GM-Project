@@ -26,11 +26,10 @@
             <div class="icon" (click)="addCategory()">
                 <i class="fa-solid fa-icons"></i>
             </div>
-            <label for="category" style="transform: translate(40%, -50%);">Category</label>
+            <label for="category" style="transform: translate(31%, -50%);">Category</label>
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="categories" searchKeyword="name" placeholder=""
-                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
                     (inputFocused)='onFocused("category")' (closed)='onClosed("category")' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate" formControlName="category" id="category">
                 </ng-autocomplete>
@@ -49,11 +48,11 @@
             <div class="icon" (click)="addCard()">
                 <i class="fa-solid fa-wallet"></i>
             </div>
-            <label for="payment" style="transform: translate(40%, -50%);">Payment</label>
+            <label for="payment" style="transform: translate(31%, -50%);">Payment</label>
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="payments" searchKeyword="name" placeholder=""
-                    (selected)='selectEventPayment($event)' (inputChanged)='onChangeSearch($event)'
+                    (selected)='selectEventPayment($event)'
                     (inputFocused)='onFocused("payment")' (closed)='onClosed("payment")' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate" formControlName="payment" id="payment">
                 </ng-autocomplete>
@@ -69,16 +68,16 @@
         </div>
     </div>
 
-    <div class="o-container">
+    <div class="ca-container">
         <div class="my-input" id="ng-autocomplete-institution">
             <div class="icon" (click)="addInstitution()">
                 <i class="fa-solid fa-city"></i>
             </div>
-            <label for="institution" style="transform: translate(40%, -50%);">Institution</label>
+            <label for="institution" style="transform: translate(31%, -50%);">Institution</label>
 
             <div class="ng-autocomplete input">
                 <ng-autocomplete [data]="institutions" searchKeyword="name" placeholder=""
-                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (selected)='selectEventInstitution($event)'
                     (inputFocused)='onFocused("institution")' (closed)='onClosed("institution")'
                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="institution"
                     id="institution">
@@ -93,7 +92,43 @@
                 </ng-template>
             </div>
         </div>
+
+        <div class="my-input">
+            <div class="icon">
+                <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <label for="created_at" style="transform: translate(60%, -50%);">Date</label>
+            <input type="datetime-local" formControlName="created_at" id="created_at" class="input" (change)="dynamicVerify('created_at')">
+        </div>
     </div>
+
+    @if (debts.length !== 0) {  
+    <div class="only-one-container">
+        <div class="my-input" id="ng-autocomplete-debt">
+            <div class="icon">
+                <i class="fa-solid fa-hammer"></i>
+            </div>
+            <label for="debt" style="transform: translate(51%, -50%);">Debt</label>
+
+            <div class="ng-autocomplete input">
+                <ng-autocomplete [data]="debts" searchKeyword="debt" placeholder=""
+                    (inputFocused)='onFocused("debt")' (closed)='onClosed("debt")'
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="debt"
+                    id="debt">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.debt"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+
+    </div>
+    }
 
     <div class="cards-container">
         <swiper-container class="mySwiper" effect="cards" grab-cursor="true">

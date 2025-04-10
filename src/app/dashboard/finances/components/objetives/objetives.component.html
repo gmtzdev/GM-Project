@@ -1,0 +1,10 @@
+<div class="container">
+    @for (objective of this.objectives; track objective.id) {
+    <app-objective-graph 
+        [id]="objective.id"
+        [title]="objective.objective" 
+        [maxValue]="objective.amount"
+        [accumulatedAmount]="objective.percentage">
+    </app-objective-graph>
+    }
+</div>

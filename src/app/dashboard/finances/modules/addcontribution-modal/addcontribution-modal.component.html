@@ -1,0 +1,105 @@
+<div class="wrap" id="wrapac" (click)="closeModal($event)">
+
+    <div class="modal-wrap" id="modal-wrapac" #ModalNewContrinution>
+
+        <div class="modal">
+            <div class="forward">
+                <i class="fa-solid fa-vault"></i>
+            </div>
+            <div class="back"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+@if (showForm) {
+<!-- @if (true) { -->
+<div class="form" id="addContributionForm" >
+    <form [formGroup]="addContributionForm">
+
+        <div class="container">
+
+            <div class="amount-container">
+
+                <div class="vault-container">
+                    <div class="vault-avatar">
+                        <i class="fa-solid fa-vault"></i>
+                    </div>
+                </div>
+
+                <div class="input-container">
+
+                    <div class="property">
+                        <div class="header">
+                            <div class="icon">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+
+                            <div class="content">
+                                <span>
+                                    Aporte a <b>{{objective}}</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property">
+                        <div class="header">
+                            <div class="icon">
+                                <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                            </div>
+
+                            <div class="content">
+                                <span style="margin: -2px 5px 0 0;"><b>$</b></span>
+                                <input placeholder="Amount" type="number" name="" id="amount" formControlName="amount">
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="property">
+                        <div class="header">
+                            <div class="icon">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+
+                            <div class="content">
+                                <span>
+                                    <!-- @if(message === ''){
+                                        {{missing}}
+                                    } -->
+                                    <!-- @else{ -->
+                                        Aportando <b>${{this.addContributionForm.controls['amount'].value}}</b>  
+                                        faltan <b>${{missing - (this.addContributionForm.controls['amount'].value)}}</b> para cumplir el objetivo.
+                                    <!-- } -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property">
+                <div class="header">
+                    <div class="icon">
+                        <i class="fa-regular fa-file-lines"></i>
+                    </div>
+                    <div class="content" style="width: 100%;">
+                        <!-- <span>Notas</span> -->
+                        <textarea placeholder="Notas" name="notes" id="message" formControlName="message"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        
+        <div class="btns-container">
+            <button class="btn btn-green" (click)="saveEvent()">Save</button>
+        </div>
+    </form>
+
+</div>
+}
