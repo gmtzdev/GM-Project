@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 import { Institution } from '../../core/models/database/Institution.model';
 import { Bill } from '../../core/models/database/Bill.model';
 import { MessageService } from 'primeng/api';
+import { BillMetrics } from '../../core/classes/BillMetrics';
 
 @Component({
   selector: 'app-showbills',
@@ -65,6 +66,7 @@ export class ShowbillsComponent {
   public globalFilter: string = '';
   public payMethod!: string;
 
+  public metrics: BillMetrics = new BillMetrics(this.selectedBills);
   visible: boolean = false;
   showDialog() {
     if (this.selectedBills.length === 0) {
@@ -80,7 +82,9 @@ export class ShowbillsComponent {
     for (const bill of this.selectedBills) {
       count += bill.amount;
     }
-    console.log(count);
+
+    const metrics = new BillMetrics(this.selectedBills);
+    this.metrics = metrics;
     this.visible = true;
   }
 
